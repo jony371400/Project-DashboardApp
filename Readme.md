@@ -26,7 +26,7 @@
 ```
 
 
-> App2
+> GUI
 ```
 * Reference WebSite
     Style : https://www.youtube.com/watch?v=yKV1IGahXqA

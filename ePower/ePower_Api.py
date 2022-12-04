@@ -92,6 +92,7 @@ def pyGet_ETP_Deal_Supplemental():
 
 @app.route('/Get_CWB_Weather2FC', methods=['POST'])
 def pyGet_CWB_Weather2FC():
+    print('Get_CWB_Weather2FC Start')
     tnow_local =  datetime.datetime.today().date()
     area_req = request.get_json()       
     area_id = area_req.get("area")
