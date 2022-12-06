@@ -81,5 +81,6 @@ $ python3 ePower_Api
 
 > Testing 
 ```
+$ python app.py
 $ node app.js
 ```
