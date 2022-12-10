@@ -54,18 +54,21 @@ def pyGet_TPC_PowerNeed_Pre():
 def pyGet_TPC_PowerNeed_Now():
     tnow_local =  datetime.datetime.today().date()
     eInfo_cur = CrawlerReq.electricityinfo_current(tnow_local)
+    print (eInfo_cur)
     return jsonify(eInfo_cur)
 
 @app.route("/Get_TPC_PowerNeed_Post")
 def pyGet_TPC_PowerNeed_Post():
     tnow_local =  datetime.datetime.today().date()
     eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
+    print (eInfo_Next)
     return jsonify(eInfo_Next)
 
 @app.route("/Get_TPC_SolarInfo")
 def pyGet_TPC_SolarInfo():
     tnow_local =  datetime.datetime.today().date()
     eSolar_data = CrawlerReq.solar_info(tnow_local)
+    print (eSolar_data)
     return jsonify(eSolar_data)
 
 @app.route("/Get_ETP_MktInfo")

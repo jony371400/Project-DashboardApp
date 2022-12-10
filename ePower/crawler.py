@@ -31,15 +31,17 @@ class crawler:
         lightState = 'null'
         # 擷取次數
         num = 0
+        print('electricityinfo_current : 1')
         try:
             options = Options()
             options.add_argument('--headless')
             chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
             driver = webdriver.Chrome(service=chrome_service, options=options)
+            print('electricityinfo_current : 1')
             while num < 3:
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_briefing3.html")
                 driver.implicitly_wait(10)
-                time.sleep(2)
+                # time.sleep(2)
                 dataTimeStampP1 = driver.find_element(By.ID, 'dataTimeStampP1').text
                 dataTimeStampP2 = driver.find_element(By.ID, 'dataTimeStampP2').text.replace("更新", "")
                 latest_load = driver.find_element(By.ID, 'latest_load').text.replace(",", "")
@@ -89,7 +91,7 @@ class crawler:
             while num < 3:
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_reserve_.html")
                 driver.implicitly_wait(10)
-                time.sleep(2)
+                # time.sleep(2)
                 ydaytime = driver.find_element(By.ID, 'ydaytime').text
                 load_max_yday = driver.find_element(By.ID, 'load_max_yday').text.replace(",", "")
                 rsv_perc_yday = driver.find_element(By.ID, 'rsv_perc_yday').text + "%"
@@ -112,7 +114,9 @@ class crawler:
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=chrome_service, options=options)
         try:
+            print('Start')
             for i in range(1, 8):
+                print(1)
                 #更新日期
                 datetime = 'null'
                 #日期
@@ -132,9 +136,16 @@ class crawler:
                 #擷取次數
                 num = 0
                 while num < 3:
+                    print(2)
                     driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_forecast_.html")
+
+                    print(3)
                     driver.implicitly_wait(10)
-                    time.sleep(2)
+
+                    print(4)
+                    # time.sleep(2)
+
+                    print(5)
                     datetime = driver.find_element(By.ID, 'datetime').text
                     dateStr = driver.find_element(By.ID, 'date'+str(i)).text[0:5]
                     dayStr = driver.find_element(By.ID, 'date'+str(i)).text[7:10]
@@ -186,7 +197,7 @@ class crawler:
             while num < 3:
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/genshx_.html")
                 driver.implicitly_wait(10)
-                time.sleep(2)
+                # time.sleep(2)
                 datetime = driver.find_element(By.ID, 'datetime').text
                 capacity_stored = driver.find_element(By.XPATH, '//*[@id="unitgentab"]/tbody/tr[185]/td[2]').text
                 capacity_stored = float(capacity_stored[0:capacity_stored.find('(')])
@@ -398,7 +409,7 @@ class crawler:
         data = cwbinfoList
         return data
 
-# 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
+    # 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_BudaiInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
@@ -441,7 +452,7 @@ class crawler:
         data = cwbinfoList
         return data
 
-# 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
+    # 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_QiguInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
