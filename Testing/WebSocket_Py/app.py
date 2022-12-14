@@ -1,5 +1,4 @@
 import sys , os
-
 from flask import Flask
 from flask_socketio import SocketIO ,send , emit # 加上這行
 from flask_cors import CORS
@@ -18,16 +17,16 @@ def SocketSendTest():
     print('Test End')
     return 'Success'
 
-@socketio.on('message')
+@socketio.on('send_message')
 def Recive(msg) : 
     print('Recive From Client Message : ' , msg)
-    socketio.emit('message' , 'Socket Connect Success' ,  broadcast = True)
+    socketio.emit('receive_message' , 'Socket Connect Success' ,  broadcast = True)
 
 if __name__ == "__main__":
 
     try:
         print('App Run !')
-        socketio.run(app , port= 3000)
+        socketio.run(app , port= 5001)
     except KeyboardInterrupt:
         print('Interrupted')
 

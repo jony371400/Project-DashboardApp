@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import webSocket from 'socket.io-client'
+// import webSocket from 'socket.io-client'
+import io from "socket.io-client";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,6 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import RefreshIcon from '@mui/icons-material/Refresh';
+
+const socket = io.connect("http://localhost:5001");
 
 const D1Contain = () => {
 
@@ -87,7 +90,7 @@ const D1Contain = () => {
     const FetchClick = () => {
         console.log('HIHIHI')
 
-        fetch('http://127.0.0.1:5000/Get_ETP_Deal_Supplemental')
+        fetch('http://127.0.0.1:5001/Get_ETP_Deal_Supplemental')
             .then((response) => response.json())
             .then((json) => {
                 jsonData = json
@@ -122,7 +125,7 @@ const D1Contain = () => {
     const TodayInfoFetchClick = () => {
         console.log('TodayInfoFetchClick')
 
-        fetch('http://127.0.0.1:5000/Get_TPC_PowerNeed_Now')
+        fetch('http://127.0.0.1:5001/Get_TPC_PowerNeed_Now')
             .then((response) => response.json())
             .then((json) => {
                 jsonData = json
@@ -159,7 +162,7 @@ const D1Contain = () => {
     const LastDayInfoFetchClick = () => {
         console.log('LastDayInfoFetchClick')
 
-        fetch('http://127.0.0.1:5000/Get_TPC_PowerNeed_Pre')
+        fetch('http://127.0.0.1:5001/Get_TPC_PowerNeed_Pre')
             .then((response) => response.json())
             .then((json) => {
                 jsonData = json
@@ -185,7 +188,7 @@ const D1Contain = () => {
     const StatusInfoFetchClick = () => {
         console.log('StatusInfoFetchClick')
 
-        fetch('http://127.0.0.1:5000/Get_TPC_SolarInfo')
+        fetch('http://127.0.0.1:5001/Get_TPC_SolarInfo')
             .then((response) => response.json())
             .then((json) => {
                 jsonData = json
@@ -213,7 +216,7 @@ const D1Contain = () => {
     const WeekDataInfoFetchClick = () => {
         console.log('WeekDataInfoFetchClick')
 
-        fetch('http://127.0.0.1:5000/Get_TPC_PowerNeed_Post')
+        fetch('http://127.0.0.1:5001/Get_TPC_PowerNeed_Post')
             .then((response) => response.json())
             .then((json) => {
                 jsonData = json
@@ -326,7 +329,7 @@ const D1Contain = () => {
         createDataDate(<h3>被轉容量</h3>, <h3>{MonCC}</h3>, <h3>{TueCC}</h3>, <h3>{WedCC}</h3>, <h3>{ThuCC}</h3>, <h3>{FriCC}</h3>, <h3>{SatCC}</h3>, <h3>{SunCC}</h3>),
         createDataDate(<h3>被轉容量率</h3>, <h3>{MonCCR}</h3>, <h3>{TueCCR}</h3>, <h3>{WedCCR}</h3>, <h3>{ThuCCR}</h3>, <h3>{FriCCR}</h3>, <h3>{SatCCR}</h3>, <h3>{SunCCR}</h3>),
         createDataDate(<h3>被轉狀態</h3>,
-            <canvas className="point"  style={{ backgroundColor: MonLight }}></canvas>,
+            <canvas className="point" style={{ backgroundColor: MonLight }}></canvas>,
             <canvas className="point" id="TueCBG" style={{ backgroundColor: TueLight }}></canvas>,
             <canvas className="point" id="WedCBG" style={{ backgroundColor: WedLight }}></canvas>,
             <canvas className="point" id="ThuCBG" style={{ backgroundColor: ThuLight }}></canvas>,
@@ -337,55 +340,25 @@ const D1Contain = () => {
     //#endregion
 
     //#region WebSocket
-    const [ws, setWs] = useState(null)
+    const [message, setMessage] = useState("");
+    const [messageReceived, setMessageReceived] = useState("");
+
+    const sendMessage = () => {
+        socket.emit("send_message", message);
+    };
 
     useEffect(() => {
-        if (ws) {
-            console.log('success connect!')
-            initWebSocket()
-        }
-
-        window.addEventListener('load', PageLoad)
-        console.log('- Use Effect -')
-    }, [ws]);
-
-    const PageLoad = () => {
-        console.log('PageLoad')
-
-        connectWebSocket()
+        socket.on("receive_message", (data) => {
+            setMessageReceived(data);
+        });
 
         TodayInfoFetchClick()
         LastDayInfoFetchClick()
         StatusInfoFetchClick()
         WeekDataInfoFetchClick()
+        console.log('- Use Effect -')
+    }, [socket]);
 
-        setInterval(() => {
-            console.log('Here')
-        }, 600000);
-    }
-
-    const connectWebSocket = () => {
-        setWs(webSocket('http://localhost:3001'))
-    }
-
-    const initWebSocket = () => {
-        ws.on('getMessage', message => {
-            console.log('getMessage', message)
-        })
-
-        ws.on('getMessageAll', message => {
-            console.log('getMessageAll', message)
-        })
-
-        ws.on('getMessageLess', message => {
-            console.log('getMessageLess', message)
-        })
-    }
-
-    // const sendMessage = (name) => {
-    //     ws.emit(name, 'MSG')
-    //     console.log('Send MSG -> ')
-    // }
     //#endregion
 
     return (
@@ -589,11 +562,13 @@ const D1Contain = () => {
                     <h4>被轉容量50萬千瓦以下</h4>
                 </div>
 
-
                 <div className='d1Contain-Contain-GridTest'>
                     <button onClick={FetchClick}>Fetch Test</button>
                     <p>{isId}</p>
                     <p>{isName}</p>
+                    <button onClick={sendMessage}>WebSocket Test</button>
+                    <h1> Recived: </h1>
+                    {messageReceived}
                 </div>
             </div>
 
