@@ -1,6 +1,88 @@
 .d2Contain {
-    .d2icon{
-        width: 100vw;
-        height: 92vh;
+    display: grid;
+    grid-template-columns: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+    grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh;
+
+    .StackedBarChart1 {
+        grid-row: 1 / 5;
+        grid-column: 1 / 9;
+        line-height: 5vh;
+        
+    }
+
+    .StackedBarChart2 {
+        grid-row: 5 / 8;
+        grid-column: 1 / 9;
+        line-height: 5vh;
+        
+    }
+
+    .area_2 {
+
+        display: flex;
+
+        grid-row: 5 / 10;
+        grid-column: 9 / 50;
+        padding: 50px;
+        
+        .area_2_1 {
+            padding-top: 50px;
+
+            font-size:0.5cm;
+
+            line-height: 5vh;
+            
+        }
+
+        .area_2_2 {
+            padding-top: 80px;
+
+            line-height: 1vh;
+            
+
+        }
+    }
+
+    .area_3 {
+
+        grid-row: 1 / 4;
+        grid-column: 9 / 20;
+        padding-top: 40px;
+        line-height: 5vh;
+        
+        .title{
+            
+        }
+    }
+
+    .area_4 {
+        display: flex;
+
+
+        grid-row: 8 / 10;
+        grid-column: 1 / 25;
+
+        .right {
+            text-align: center;
+            padding-top: 20px;
+            
+            font: size 0.5em;
+
+        }
+
+        .left {
+            //border-style:solid;
+            padding: 20px;
+            
+            font: size 0.5em;
+            text-align: center;
+            
+
+            .value{
+                
+            padding-top: 20px;
+            
+            }
+        }
     }
 }

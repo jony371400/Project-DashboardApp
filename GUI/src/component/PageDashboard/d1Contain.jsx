@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import webSocket from 'socket.io-client'
+
 import io from "socket.io-client";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -348,14 +348,99 @@ const D1Contain = () => {
     };
 
     useEffect(() => {
-        socket.on("receive_message", (data) => {
-            setMessageReceived(data);
+        socket.on("TodayInfo", (jsonData) => {
+            // setMessageReceived(data);
+            console.log('Update TodayInfo')
+            console.log(jsonData)
+            setDate(jsonData.dataTimeStampP1)
+            setTime(jsonData.dataTimeStampP2)
+            setCP(jsonData.latest_load)
+            setEP(jsonData.load_forecast_max)
+            setMP(jsonData.supply_arranged_max)
+            setUR(jsonData.latest_load_perc)
+            setMUR(jsonData.load_forecast_max_perc)
+            setTodayLight(jsonData.lightState)
         });
 
-        TodayInfoFetchClick()
-        LastDayInfoFetchClick()
-        StatusInfoFetchClick()
-        WeekDataInfoFetchClick()
+        socket.on("LastDayInfo", (jsonData) => {
+            // setMessageReceived(data);
+            console.log('Update LastDayInfo')
+            console.log(jsonData)
+            setLastDate(jsonData.ydaytime)
+            setLMP(jsonData.load_max_yday)
+            setLMUR(jsonData.rsv_perc_yday)
+        });
+
+        socket.on("StatusInfo", (jsonData) => {
+            // setMessageReceived(data);
+            console.log('Update StatusInfo')
+            console.log(jsonData)
+            setUpdateDate(jsonData.datetime)
+            setDV(jsonData.capacity_stored)
+            setGP(jsonData.electricity_stored)
+            setDGR(jsonData.percent)
+        });
+
+        socket.on("WeekDataInfo", (jsonData) => {
+            // setMessageReceived(data);
+            console.log('Update WeekDataInfo')
+            console.log(jsonData)
+            setMonSP(jsonData[0].supply)
+            setMonLP(jsonData[0].load)
+            setMonCC(jsonData[0].value)
+            setMonCCR(jsonData[0].percent)
+
+            setTueSP(jsonData[1].supply)
+            setTueLP(jsonData[1].load)
+            setTueCC(jsonData[1].value)
+            setTueCCR(jsonData[1].percent)
+
+            setWedSP(jsonData[2].supply)
+            setWedLP(jsonData[2].load)
+            setWedCC(jsonData[2].value)
+            setWedCCR(jsonData[2].percent)
+
+            setThuSP(jsonData[3].supply)
+            setThuLP(jsonData[3].load)
+            setThuCC(jsonData[3].value)
+            setThuCCR(jsonData[3].percent)
+
+            setFriSP(jsonData[4].supply)
+            setFriLP(jsonData[4].load)
+            setFriCC(jsonData[4].value)
+            setFriCCR(jsonData[4].percent)
+
+            setSatSP(jsonData[5].supply)
+            setSatLP(jsonData[5].load)
+            setSatCC(jsonData[5].value)
+            setSatCCR(jsonData[5].percent)
+
+            setSunSP(jsonData[6].supply)
+            setSunLP(jsonData[6].load)
+            setSunCC(jsonData[6].value)
+            setSunCCR(jsonData[6].percent)
+
+            // console.log('MonState : ', jsonData[0].lightState)
+            // console.log('TueState : ', jsonData[1].lightState)
+            // console.log('WedState : ', jsonData[2].lightState)
+            // console.log('ThuState : ', jsonData[3].lightState)
+            // console.log('FriState : ', jsonData[4].lightState)
+            // console.log('SatState : ', jsonData[5].lightState)
+            // console.log('SunState : ', jsonData[6].lightState)
+
+            setMonLight(jsonData[0].lightState)
+            setTueLight(jsonData[1].lightState)
+            setWedLight(jsonData[2].lightState)
+            setThuLight(jsonData[3].lightState)
+            setFriLight(jsonData[4].lightState)
+            setSatLight(jsonData[5].lightState)
+            setSunLight(jsonData[6].lightState)
+        });
+
+        // TodayInfoFetchClick()
+        // LastDayInfoFetchClick()
+        // StatusInfoFetchClick()
+        // WeekDataInfoFetchClick()
         console.log('- Use Effect -')
     }, [socket]);
 

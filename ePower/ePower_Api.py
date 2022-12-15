@@ -109,12 +109,55 @@ def SocketSendTest():
     print('Test End')
     return 'Success'
 
+@app.route('/UpdateTodayInfo')
+def UpdateTodayInfo():
+    print('Test Begin')
+    tnow_local = datetime.datetime.today().date()
+    eInfo_cur = CrawlerReq.electricityinfo_current(tnow_local)
+    print(eInfo_cur)    
+    socketio.emit('TodayInfo' , eInfo_cur ,  broadcast = True)
+    print('Send Success!')
+    print('Test End')
+    return 'Success'
+
+@app.route('/UpdateLastDayInfo')
+def UpdateLastDayInfo():
+    print('Test Begin')    
+    tnow_local = datetime.datetime.today().date()
+    eInfo = CrawlerReq.electricityInfo_yday(tnow_local);
+    print(eInfo)
+    socketio.emit('LastDayInfo' , eInfo ,  broadcast = True)
+    print('Send Success!')
+    print('Test End')
+    return 'Success'
+
+@app.route('/UpdateStatusInfo')
+def UpdateStatusInfo():
+    print('Test Begin')
+    tnow_local = datetime.datetime.today().date()
+    eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
+    print(eInfo_Next)
+    socketio.emit('StatusInfo' , eInfo_Next ,  broadcast = True)
+    print('Send Success!')
+    print('Test End')
+    return 'Success'
+
+@app.route('/UpdateWeekDataInfo')
+def UpdateWeekDataInfo():
+    print('Test Begin')
+    tnow_local = datetime.datetime.today().date()
+    eSolar_data = CrawlerReq.solar_info(tnow_local)
+    print(eSolar_data)
+    socketio.emit('WeekDataInfo' , eSolar_data ,  broadcast = True)
+    print('Send Success!')
+    print('Test End')
+    return 'Success'
+
 # WebSocket Connection
 @socketio.on('send_message')
 def Recive(msg) : 
     print('Recive From Client Message : ' , msg)
     socketio.emit('receive_message' , 'Socket Connect Success' ,  broadcast = True)
-
 
 if __name__ == "__main__":
 
