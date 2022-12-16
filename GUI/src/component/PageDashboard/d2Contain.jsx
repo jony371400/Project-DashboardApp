@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,11 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import { AreaChart, LineChart, Line, BarChart, Bar, Cell, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
-
+// import DashboardIcon from '@mui/icons-material/Dashboard';
+// import { AreaChart, LineChart, Line, BarChart, Bar, Cell, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
+import { Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
 
 
 const D2Contain = () => {
@@ -20,9 +19,9 @@ const D2Contain = () => {
     let jsonData
     let SpinningData
     let SupplementalData
-    let amountData
+    // let amountData
     let PowerNeeddata
-    let Totalmomeydata
+    // let Totalmomeydata
     let Weather_Lukang_Data
     let Weather_Lunbei_Data
     let Weather_Budai_Data
@@ -543,32 +542,26 @@ const D2Contain = () => {
             console.log('即時備轉');
             console.log(count);
 
-            
-            console.log(T00_Temp);
-            console.log(T03_Temp);
-            console.log(T06_Temp);
-            console.log(T09_Temp);
-            console.log(T12_Temp);
-            console.log(T15_Temp);
-            console.log(T18_Temp);
-            console.log(T21_Temp);
             if (T00_Temp >= 25) {
-                price_data[0].price = fun_Electricity_Spinning_25_Up(T00_PofP, T00_Temp) * count;
+                //price_data[0].price = fun_Electricity_Spinning_25_Up(T00_PofP, T00_Temp) * count;
+                price_data[0].price = 300 * count;
             } else {
-
-                price_data[0].price = fun_Electricity_Spinning_25_Dn(T00_PofP, T00_Temp) * count;
+                //price_data[0].price = fun_Electricity_Spinning_25_Dn(T00_PofP, T00_Temp) * count;
+                price_data[0].price = 300 * count;
             }
             if (T00_Temp >= 25) {
-                price_data[1].price = fun_Electricity_Spinning_25_Up(T03_PofP, T03_Temp) * count;
+                //price_data[1].price = fun_Electricity_Spinning_25_Up(T03_PofP, T03_Temp) * count;
+                price_data[1].price = 300 * count;
             } else {
-
-                price_data[1].price = fun_Electricity_Spinning_25_Dn(T03_PofP, T03_Temp) * count;
+                //price_data[1].price = fun_Electricity_Spinning_25_Dn(T03_PofP, T03_Temp) * count;
+                price_data[1].price = 300 * count;
             }
             if (T00_Temp >= 25) {
-                price_data[2].price = fun_Electricity_Spinning_25_Up(T06_PofP, T06_Temp) * count;
+                //price_data[2].price = fun_Electricity_Spinning_25_Up(T06_PofP, T06_Temp) * count;
+                price_data[2].price = 300 * count;
             } else {
-
-                price_data[2].price = fun_Electricity_Spinning_25_Dn(T06_PofP, T06_Temp) * count;
+                //price_data[2].price = fun_Electricity_Spinning_25_Dn(T06_PofP, T06_Temp) * count;
+                price_data[2].price = 300 * count;
             }
             if (T00_Temp >= 25) {
                 price_data[3].price = fun_Electricity_Spinning_25_Up(T09_PofP, T09_Temp) * count;
@@ -585,48 +578,22 @@ const D2Contain = () => {
             if (T00_Temp >= 25) {
                 price_data[5].price = fun_Electricity_Spinning_25_Up(T15_PofP, T15_Temp) * count;
             } else {
-
                 price_data[5].price = fun_Electricity_Spinning_25_Dn(T15_PofP, T15_Temp) * count;
             }
             if (T00_Temp >= 25) {
-                price_data[6].price = fun_Electricity_Spinning_25_Up(T18_PofP, T18_Temp) * count;
+                //price_data[6].price = fun_Electricity_Spinning_25_Up(T18_PofP, T18_Temp) * count;
+                price_data[6].price = 399 * count;
             } else {
-
-                price_data[6].price = fun_Electricity_Spinning_25_Dn(T18_PofP, T18_Temp) * count;
+                //price_data[6].price = fun_Electricity_Spinning_25_Dn(T18_PofP, T18_Temp) * count;
+                price_data[6].price = 399 * count;
             }
             if (T00_Temp >= 25) {
-                price_data[7].price = fun_Electricity_Spinning_25_Up(T21_PofP, T21_Temp) * count;
+                //price_data[7].price = fun_Electricity_Spinning_25_Up(T21_PofP, T21_Temp) * count;
+                price_data[7].price = 399 * count;
             } else {
-
-                price_data[7].price = fun_Electricity_Spinning_25_Dn(T21_PofP, T21_Temp) * count;
+                //price_data[7].price = fun_Electricity_Spinning_25_Dn(T21_PofP, T21_Temp) * count;
+                price_data[7].price = 399 * count;
             }
-            /*
-            if (Weather_Data[0].temperature > 25) {
-                console.log('溫度>25');
-                price_data[0].price = fun_Electricity_Spinning_25_Up(Weather_Data[0].PofP, Weather_Data[0].temperature) * count;
-                price_data[1].price = fun_Electricity_Spinning_25_Up(Weather_Data[1].PofP, Weather_Data[1].temperature) * count;
-                price_data[2].price = fun_Electricity_Spinning_25_Up(Weather_Data[2].PofP, Weather_Data[2].temperature) * count;
-                price_data[3].price = fun_Electricity_Spinning_25_Up(Weather_Data[3].PofP, Weather_Data[3].temperature) * count;
-                price_data[4].price = fun_Electricity_Spinning_25_Up(Weather_Data[4].PofP, Weather_Data[4].temperature) * count;
-                price_data[5].price = fun_Electricity_Spinning_25_Up(Weather_Data[5].PofP, Weather_Data[5].temperature) * count;
-                price_data[6].price = fun_Electricity_Spinning_25_Up(Weather_Data[6].PofP, Weather_Data[6].temperature) * count;
-                price_data[7].price = fun_Electricity_Spinning_25_Up(Weather_Data[7].PofP, Weather_Data[7].temperature) * count;
-            }
-            else {
-                console.log('溫度<25');
-                price_data[0].price = fun_Electricity_Spinning_25_Dn(Weather_Data[0].PofP, Weather_Data[0].temperature) * count;
-                price_data[1].price = fun_Electricity_Spinning_25_Dn(Weather_Data[1].PofP, Weather_Data[1].temperature) * count;
-                price_data[2].price = fun_Electricity_Spinning_25_Dn(Weather_Data[2].PofP, Weather_Data[2].temperature) * count;
-                price_data[3].price = fun_Electricity_Spinning_25_Dn(Weather_Data[3].PofP, Weather_Data[3].temperature) * count;
-                price_data[4].price = fun_Electricity_Spinning_25_Dn(Weather_Data[4].PofP, Weather_Data[4].temperature) * count;
-                price_data[5].price = fun_Electricity_Spinning_25_Dn(Weather_Data[5].PofP, Weather_Data[5].temperature) * count;
-                price_data[6].price = fun_Electricity_Spinning_25_Dn(Weather_Data[6].PofP, Weather_Data[6].temperature) * count;
-                price_data[7].price = fun_Electricity_Spinning_25_Dn(Weather_Data[7].PofP, Weather_Data[7].temperature) * count;
-                
-            }
-            
-            */
-           
 
             m_totalprice = (price_data[0].price + price_data[1].price + price_data[2].price + price_data[3].price + price_data[4].price +
                 price_data[5].price + price_data[6].price + price_data[7].price);
@@ -634,104 +601,70 @@ const D2Contain = () => {
             settatleprice(price_data);
             settxtvalue(m_totalprice);
             console.log(price_data[0].price);
-            
+
         }
         else {
             console.log('補充備轉');
             console.log(count);
 
-            console.log(T00_Temp);
-            console.log(T03_Temp);
-            console.log(T06_Temp);
-            console.log(T09_Temp);
-            console.log(T12_Temp);
-            console.log(T15_Temp);
-            console.log(T18_Temp);
-            console.log(T21_Temp);
             if (T00_Temp >= 25) {
-                price_data[0].price = fun_Electricity_Supplemental_25_Up(T00_PofP, T00_Temp) * count;
+                //price_data[0].price = fun_Electricity_Supplemental_25_Up(T00_PofP, T00_Temp) * count;
+                price_data[0].price = 220 * count;
             } else {
-
-                price_data[0].price = fun_Electricity_Supplemental_25_Dn(T00_PofP, T00_Temp) * count;
+                //price_data[0].price = fun_Electricity_Supplemental_25_Dn(T00_PofP, T00_Temp) * count;
+                price_data[0].price = 220 * count;
             }
             if (T00_Temp >= 25) {
-                price_data[1].price = fun_Electricity_Supplemental_25_Up(T03_PofP, T03_Temp) * count;
+                //price_data[1].price = fun_Electricity_Supplemental_25_Up(T03_PofP, T03_Temp) * count;
+                price_data[1].price = 220 * count;
             } else {
-
-                price_data[1].price = fun_Electricity_Supplemental_25_Dn(T03_PofP, T03_Temp) * count;
+                //price_data[1].price = fun_Electricity_Supplemental_25_Dn(T03_PofP, T03_Temp) * count;
+                price_data[1].price = 220 * count;
             }
             if (T00_Temp >= 25) {
-                price_data[2].price = fun_Electricity_Supplemental_25_Up(T06_PofP, T06_Temp) * count;
+                //price_data[2].price = fun_Electricity_Supplemental_25_Up(T06_PofP, T06_Temp) * count;
+                price_data[2].price = 220 * count;
             } else {
-
-                price_data[2].price = fun_Electricity_Supplemental_25_Dn(T06_PofP, T06_Temp) * count;
+                //price_data[2].price = fun_Electricity_Supplemental_25_Dn(T06_PofP, T06_Temp) * count;
+                price_data[2].price = 220 * count;
             }
             if (T00_Temp >= 25) {
                 price_data[3].price = fun_Electricity_Supplemental_25_Up(T09_PofP, T09_Temp) * count;
             } else {
-
                 price_data[3].price = fun_Electricity_Supplemental_25_Dn(T09_PofP, T09_Temp) * count;
             }
             if (T00_Temp >= 25) {
                 price_data[4].price = fun_Electricity_Supplemental_25_Up(T12_PofP, T12_Temp) * count;
             } else {
-
                 price_data[4].price = fun_Electricity_Supplemental_25_Dn(T12_PofP, T12_Temp) * count;
             }
             if (T00_Temp >= 25) {
                 price_data[5].price = fun_Electricity_Supplemental_25_Up(T15_PofP, T15_Temp) * count;
             } else {
-
                 price_data[5].price = fun_Electricity_Supplemental_25_Dn(T15_PofP, T15_Temp) * count;
             }
             if (T00_Temp >= 25) {
-                price_data[6].price = fun_Electricity_Supplemental_25_Up(T18_PofP, T18_Temp) * count;
+                //price_data[6].price = fun_Electricity_Supplemental_25_Up(T18_PofP, T18_Temp) * count;
+                price_data[6].price = 299 * count;
             } else {
-
-                price_data[6].price = fun_Electricity_Supplemental_25_Dn(T18_PofP, T18_Temp) * count;
+                //price_data[6].price = fun_Electricity_Supplemental_25_Dn(T18_PofP, T18_Temp) * count;
+                price_data[6].price = 299 * count;
             }
             if (T00_Temp >= 25) {
-                price_data[7].price = fun_Electricity_Supplemental_25_Up(T21_PofP, T21_Temp) * count;
+                //price_data[7].price = fun_Electricity_Supplemental_25_Up(T21_PofP, T21_Temp) * count;
+                price_data[7].price = 299 * count;
             } else {
+                //price_data[7].price = fun_Electricity_Supplemental_25_Dn(T21_PofP, T21_Temp) * count;
+                price_data[7].price = 299 * count;
+            }
 
-                price_data[7].price = fun_Electricity_Supplemental_25_Dn(T21_PofP, T21_Temp) * count;
-            }
-            /*
-            if (Weather_Data[0].temperature > 25) {
-                console.log('溫度>25');
-                
-                price_data[0].price = fun_Electricity_Supplemental_25_Up(Weather_Data[0].PofP, Weather_Data[0].temperature) * count;
-                price_data[1].price = fun_Electricity_Supplemental_25_Up(Weather_Data[1].PofP, Weather_Data[1].temperature) * count;
-                price_data[2].price = fun_Electricity_Supplemental_25_Up(Weather_Data[2].PofP, Weather_Data[2].temperature) * count;
-                price_data[3].price = fun_Electricity_Supplemental_25_Up(Weather_Data[3].PofP, Weather_Data[3].temperature) * count;
-                price_data[4].price = fun_Electricity_Supplemental_25_Up(Weather_Data[4].PofP, Weather_Data[4].temperature) * count;
-                price_data[5].price = fun_Electricity_Supplemental_25_Up(Weather_Data[5].PofP, Weather_Data[5].temperature) * count;
-                price_data[6].price = fun_Electricity_Supplemental_25_Up(Weather_Data[6].PofP, Weather_Data[6].temperature) * count;
-                price_data[7].price = fun_Electricity_Supplemental_25_Up(Weather_Data[7].PofP, Weather_Data[7].temperature) * count;
-                
-            }
-            else {
-                console.log('溫度<25');
-                
-                price_data[0].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[0].PofP, Weather_Data[0].temperature) * count;
-                price_data[1].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[1].PofP, Weather_Data[1].temperature) * count;
-                price_data[2].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[2].PofP, Weather_Data[2].temperature) * count;
-                price_data[3].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[3].PofP, Weather_Data[3].temperature) * count;
-                price_data[4].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[4].PofP, Weather_Data[4].temperature) * count;
-                price_data[5].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[5].PofP, Weather_Data[5].temperature) * count;
-                price_data[6].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[6].PofP, Weather_Data[6].temperature) * count;
-                price_data[7].price = fun_Electricity_Supplemental_25_Dn(Weather_Data[7].PofP, Weather_Data[7].temperature) * count;
-                
-            }
-            
-            */
             m_totalprice = (price_data[0].price + price_data[1].price + price_data[2].price + price_data[3].price + price_data[4].price +
                 price_data[5].price + price_data[6].price + price_data[7].price);
 
             settatleprice(price_data);
             settxtvalue(m_totalprice);
             console.log(price_data[0].price);
-            
+
         }
     };
 
@@ -1056,15 +989,12 @@ const D2Contain = () => {
         createWeatherDate1(<h3>降雨</h3>, <h3>{T00_PofP}</h3>, <h3>{T03_PofP}</h3>, <h3>{T06_PofP}</h3>, <h3>{T09_PofP}</h3>, <h3>{T12_PofP}</h3>, <h3>{T15_PofP}</h3>, <h3>{T18_PofP}</h3>, <h3>{T21_PofP}</h3>)
     ]
 
-
-
-
     return (
         <div className='d2Contain'>
             <div className="StackedBarChart1">
                 <RefreshIcon onClick={Get_ETP_Deal_Spinning_Click}></RefreshIcon>
-                <h3 onClick={initial}>昨日即時備轉價格</h3>
-                <ComposedChart className="chart" width={650} height={230} data={Spinning} >
+                <p4>昨日即時備轉價格</p4>
+                <ComposedChart className="chart1" width={650} height={230} data={Spinning} >
                     <XAxis dataKey="hour" />
                     <YAxis yAxisId="left" padding={{ top: 30 }} label={{ value: '元/MW·h', angle: 0, position: 'insideTop' }} orientation="left" domain={[0, 400]} />
                     <Tooltip />
@@ -1076,10 +1006,11 @@ const D2Contain = () => {
                     <Line yAxisId="left" type="monotone" dataKey="price" name="結清價格" stroke="#ff7300" />
                 </ComposedChart>
             </div>
+
             <div className="StackedBarChart2">
                 <RefreshIcon onClick={Get_ETP_Deal_Supplemental_Click}></RefreshIcon>
                 <p4>昨日補充備轉價格</p4>
-                <ComposedChart className="chart" width={650} height={230} data={Supplemental} >
+                <ComposedChart className="chart2" width={650} height={230} data={Supplemental} >
                     <XAxis dataKey="hour" />
                     <YAxis yAxisId="left" padding={{ top: 30 }} label={{ value: '元/MW·h', angle: 0, position: 'insideTop' }} orientation="left" domain={[0, 300]} />
                     <Tooltip />
@@ -1113,7 +1044,7 @@ const D2Contain = () => {
                             <BarChart data={tatleprice}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="time" label={{ value: '時段', angle: 0, position: 'Left' }} />
-                                <YAxis domain={[0, 1000]} padding={{ top: 30 }} label={{ value: 'MW', angle: 0, position: 'insideTop' }} />
+                                <YAxis domain={[0, 1000]} padding={{ top: 30 }} label={{ value: '元', angle: 0, position: 'insideTop' }} />
                                 <Tooltip />
                                 <Legend />
                                 <Bar dataKey="price" fill="#e2d559" />
@@ -1124,7 +1055,7 @@ const D2Contain = () => {
             </div>
             <div className="area_3">
                 <RefreshIcon onClick={Weather_Lukang_Click}></RefreshIcon>
-                <div className="title" >參考資料
+                <p4>參考資料
                     (<select value={weather_cbbox_item} onChange={weather_Change}>
                         {weather_combobox_item.map(option_w => (
                             <option key={option_w.value} value={option_w.value}>
@@ -1133,7 +1064,7 @@ const D2Contain = () => {
                         ))}
                     </select>
                     明天氣溫和降雨機率)
-                </div>
+                </p4>
                 <div className='weather'>
                     <TableContainer component={Paper} className='Table'>
                         <Table>
@@ -1172,7 +1103,7 @@ const D2Contain = () => {
             <div className="area_4">
                 <div className="right">
                     <RefreshIcon onClick={electricity_deal_Click}></RefreshIcon>
-                    <div className="title1">昨日市場資訊(平均結清價格)</div>
+                    <p4>昨日市場資訊(平均結清價格)</p4>
                     <div className="box">
                         <div className="info2">調頻備轉 {fmtap}</div>
                         <div className="info3">即時備轉 {realtimetap}</div>
@@ -1181,8 +1112,7 @@ const D2Contain = () => {
                 </div>
                 <div className="left">
                     <RefreshIcon onClick={PowerNeed_Click}></RefreshIcon>
-                    <div className="title2">明日備轉容量預測</div>
-
+                    <p4>明日備轉容量預測</p4>
                     <div className="value">{PowerNeed}%</div>
                 </div>
             </div>

@@ -4,6 +4,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
+from concurrent.futures import ThreadPoolExecutor
+import numpy as np
 import datetime
 import time
 import json
@@ -31,17 +33,17 @@ class crawler:
         lightState = 'null'
         # 擷取次數
         num = 0
-        print('electricityinfo_current : 1')
         try:
+            print('--cralwer start--')
             options = Options()
             options.add_argument('--headless')
             chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
             driver = webdriver.Chrome(service=chrome_service, options=options)
-            print('electricityinfo_current : 1')
             while num < 3:
+                print('try '+str(num+1))
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_briefing3.html")
                 driver.implicitly_wait(10)
-                # time.sleep(2)
+                time.sleep(1)
                 dataTimeStampP1 = driver.find_element(By.ID, 'dataTimeStampP1').text
                 dataTimeStampP2 = driver.find_element(By.ID, 'dataTimeStampP2').text.replace("更新", "")
                 latest_load = driver.find_element(By.ID, 'latest_load').text.replace(",", "")
@@ -68,8 +70,9 @@ class crawler:
                     break
         #網頁擷取錯誤例外處理
         except:
+            print('error occured')
             pass
-
+        print('--cralwer end--')
         data = {'dataTimeStampP1': dataTimeStampP1, 'dataTimeStampP2': dataTimeStampP2, 'latest_load': latest_load, 'latest_load_perc': latest_load_perc, 'load_forecast_max': load_forecast_max, 'load_forecast_max_perc': load_forecast_max_perc, 'supply_arranged_max': supply_arranged_max, 'lightState': lightState}
         return data
 
@@ -83,15 +86,17 @@ class crawler:
         rsv_perc_yday = 'null'
         #擷取次數
         num = 0
-        options = Options()
-        options.add_argument('--headless')
-        chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=chrome_service, options=options)
         try:
+            print('--cralwer start--')
+            options = Options()
+            options.add_argument('--headless')
+            chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=chrome_service, options=options)
             while num < 3:
+                print('try ' + str(num + 1))
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_reserve_.html")
                 driver.implicitly_wait(10)
-                # time.sleep(2)
+                time.sleep(1)
                 ydaytime = driver.find_element(By.ID, 'ydaytime').text
                 load_max_yday = driver.find_element(By.ID, 'load_max_yday').text.replace(",", "")
                 rsv_perc_yday = driver.find_element(By.ID, 'rsv_perc_yday').text + "%"
@@ -101,22 +106,22 @@ class crawler:
                     break
         # 網頁擷取錯誤例外處理
         except:
+            print('error occured')
             pass
-
+        print('--cralwer end--')
         data = {'ydaytime': ydaytime, 'load_max_yday': load_max_yday, 'rsv_perc_yday': rsv_perc_yday}
         return data
 
     # 擷取未來電力供需資訊(一周) 1.更新日期 2.日期 3.day 4.淨尖峰供電能力 5.尖峰負載 6.備轉容量 7.備轉容量率 8.備轉容量供電色號
     def electricityInfo_future(self, strDate = datetime.datetime.today().date()):
         data = []
-        options = Options()
-        options.add_argument('--headless')
-        chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=chrome_service, options=options)
         try:
-            print('Start')
+            print('--cralwer start--')
+            options = Options()
+            options.add_argument('--headless')
+            chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=chrome_service, options=options)
             for i in range(1, 8):
-                print(1)
                 #更新日期
                 datetime = 'null'
                 #日期
@@ -136,16 +141,10 @@ class crawler:
                 #擷取次數
                 num = 0
                 while num < 3:
-                    print(2)
+                    print('try ' + str(num + 1))
                     driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_forecast_.html")
-
-                    print(3)
                     driver.implicitly_wait(10)
-
-                    print(4)
-                    # time.sleep(2)
-
-                    print(5)
+                    #time.sleep(1)
                     datetime = driver.find_element(By.ID, 'datetime').text
                     dateStr = driver.find_element(By.ID, 'date'+str(i)).text[0:5]
                     dayStr = driver.find_element(By.ID, 'date'+str(i)).text[7:10]
@@ -173,8 +172,9 @@ class crawler:
                     data.append({'datetime': datetime, 'dateStr': dateStr, 'dayStr': dayStr, 'supply': supply, 'load': load, 'value': value, 'percent': percent, 'lightState': lightState})
         # 網頁擷取錯誤例外處理
         except:
+            print('error occured')
             pass
-
+        print('--cralwer end--')
         return data
 
     # 擷取太陽能 1.更新日期 2.裝置容量 3.淨發電量 4.裝置容量淨發電量比
@@ -189,15 +189,17 @@ class crawler:
         percent = 'null'
         # 擷取次數
         num = 0
-        options = Options()
-        options.add_argument('--headless')
-        chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
-        driver = webdriver.Chrome(service=chrome_service, options=options)
         try:
+            print('--cralwer start--')
+            options = Options()
+            options.add_argument('--headless')
+            chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=chrome_service, options=options)
             while num < 3:
+                print('try ' + str(num + 1))
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/genshx_.html")
                 driver.implicitly_wait(10)
-                # time.sleep(2)
+                #time.sleep(1)
                 datetime = driver.find_element(By.ID, 'datetime').text
                 capacity_stored = driver.find_element(By.XPATH, '//*[@id="unitgentab"]/tbody/tr[185]/td[2]').text
                 capacity_stored = float(capacity_stored[0:capacity_stored.find('(')])
@@ -213,9 +215,10 @@ class crawler:
                     break
         # 網頁擷取錯誤例外處理
         except:
+            print('error occured')
             pass
-
         data = {'datetime': datetime, 'capacity_stored': str(capacity_stored), 'electricity_stored': str(electricity_stored), 'percent': str(percent) + "%"}
+        print('--cralwer end--')
         return data
 
     #擷取電力交易平台平均結清價格 1.調頻備轉 2.即時備轉 3.補充備轉
@@ -229,14 +232,16 @@ class crawler:
         # 擷取次數
         num = 0
         try:
+            print('--cralwer start--')
             options = Options()
             options.add_argument('--headless')
             chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
             driver = webdriver.Chrome(service=chrome_service, options=options)
             while num < 3:
+                print('try ' + str(num + 1))
                 driver.get("https://etp.taipower.com.tw/")
                 driver.implicitly_wait(10)
-                time.sleep(2)
+                #time.sleep(1)
                 FMTransferAvePrice = driver.find_element(By.XPATH, '//table[@class="announce_board" and position()=1]/tbody/tr[2]/td[2]').text
                 realtimeTransferAvePrice = driver.find_element(By.XPATH, '//table[@class="announce_board" and position()=1]/tbody/tr[3]/td[2]').text
                 fartherTransferAvePrice = driver.find_element(By.XPATH, '//table[@class="announce_board" and position()=1]/tbody/tr[4]/td[2]').text
@@ -246,61 +251,60 @@ class crawler:
                     break
         # 網頁擷取錯誤例外處理
         except:
+            print('error occured')
             pass
-
         data = {'FMTransferAvePrice': FMTransferAvePrice, 'realtimeTransferAvePrice' :realtimeTransferAvePrice, 'fartherTransferAvePrice': fartherTransferAvePrice}
+        print('--cralwer end--')
         return data
 
     #擷取電力交易平台即時備轉 當天24小時1.小時 2.得標容量(國營) 3.得標容量(民營) 4.得標容量(非交易) 5.結清價格
-    def electricity_deal_realtimeStored(self, strDate = datetime.datetime.today().date()):
+    def electricity_deal_realtimeStored(self, eacHourValue, strDate=datetime.datetime.today().date()):
+        uml = r'https://etp.taipower.com.tw/'
+        hourlyList = []
+        futures = []
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=chrome_service, options=options)
-        driver.get("https://etp.taipower.com.tw/")
-        driver.implicitly_wait(10)
-        time.sleep(1)
-        actions = ActionChains(driver)
-        hourlyList = []
-        #指向長條圖每小時，擷取數據
-        for i in range(0, 24):
-            #得標容量(國營)
-            StateOwnedStored = 'null'
-            #得標容量(民營)
-            investorownedStored = 'null'
-            #得標容量(非交易)
-            nodealStored = 'null'
-            #結清價格
-            price = 'null'
-            hourly = {i, 'null', 'null', 'null'}
-            for j in range(0, 2):
-                actions.move_to_element(driver.find_element(By.XPATH, '(//*[@class="recharts-layer recharts-bar-rectangles"])[6]/*/*[' + str(i + 1) + ']'))
-                actions.perform()
-                time.sleep(0.2)
-            StateOwnedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[0].text
-            investorownedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[1].text
-            nodealStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[2].text
-            price = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[3].text
-            hourly = {'hour': str(i), 'StateOwnedStored': str(StateOwnedStored), 'investorownedStored': str(investorownedStored), 'nodealStored': str(nodealStored), 'price': str(price)}
-            hourlyList.append(hourly)
-
-        date = hourlyList
-        return date
+        pool = ThreadPoolExecutor(max_workers=4)
+        # 多工執行
+        for i in range(0, 24, 6):
+            future = pool.submit(eacHourValue, driver, i, '6')
+            futures.append(future)
+        pool.shutdown()
+        for fu in futures:
+            hourlyList.extend(fu.result())
+        print('--cralwer end--')
+        return hourlyList
 
     # 擷取電力交易平台補充備轉 當天24小時1.小時 2.得標容量(國營) 3.得標容量(民營) 4.得標容量(非交易) 5.結清價格
-    def electricity_deal_replenishStore(self, strDate=datetime.datetime.today().date()):
+    def electricity_deal_replenishStore(self, eacHourValue, strDate=datetime.datetime.today().date()):
+        hourlyList = []
+        futures = []
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=chrome_service, options=options)
-        driver.get("https://etp.taipower.com.tw/")
+        pool = ThreadPoolExecutor(max_workers=4)
+        # 多工執行
+        for i in range(0, 24, 6):
+            future = pool.submit(eacHourValue, driver, i, '7')
+            futures.append(future)
+        pool.shutdown()
+        for fu in futures:
+            hourlyList.extend(fu.result())
+        print('--cralwer end--')
+        return hourlyList
+
+    def eacHourValue(driver, h, n):
+        #driver = webdriver.Chrome(service=chrome_service, options=options)
+        driver.get('https://etp.taipower.com.tw/')
         driver.implicitly_wait(10)
-        time.sleep(1)
-        actions = ActionChains(driver)
+        #time.sleep(1)
         hourlyList = []
-        # 指向長條圖每小時，擷取數據
-        for i in range(0, 24):
-            # 得標容量(國營)
+        actions = ActionChains(driver)
+        print('start', h, 'h value get')
+        for i in range(h, h + 6):
             StateOwnedStored = 'null'
             # 得標容量(民營)
             investorownedStored = 'null'
@@ -308,9 +312,8 @@ class crawler:
             nodealStored = 'null'
             # 結清價格
             price = 'null'
-            hourly = {i, 'null', 'null', 'null'}
             for j in range(0, 2):
-                actions.move_to_element(driver.find_element(By.XPATH, '(//*[@class="recharts-layer recharts-bar-rectangles"])[7]/*/*[' + str(i + 1) + ']'))
+                actions.move_to_element(driver.find_element(By.XPATH,'(//*[@class="recharts-layer recharts-bar-rectangles"])[' + n + ']/*/*[' + str(i + 1) + ']'))
                 actions.perform()
                 time.sleep(0.2)
             StateOwnedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[0].text
@@ -319,15 +322,15 @@ class crawler:
             price = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[3].text
             hourly = {'hour': str(i), 'StateOwnedStored': str(StateOwnedStored), 'investorownedStored': str(investorownedStored), 'nodealStored': str(nodealStored), 'price': str(price)}
             hourlyList.append(hourly)
-
-        date = hourlyList
-        return date
+        print('end', h, 'h value get')
+        return hourlyList
 
     # 擷取交通部氣象局彰化縣鹿港鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_LugangInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
+        print('--cralwer start--')
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
@@ -346,9 +349,10 @@ class crawler:
             cwbinfo = {'district': '彰化縣鹿港鎮', 'date': date, 'period': period, 'temperature': temperature, 'PofP': PofP}
             try:
                 while num < 3:
+                    print('try ' + str(num + 1))
                     driver.get("https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=1000702")
                     driver.implicitly_wait(10)
-                    time.sleep(2)
+                    #time.sleep(1)
                     date = driver.find_element(By.ID, 'PC3_D' + IDList[i][0] + '').text.replace("\n", " ")
                     period = driver.find_element(By.XPATH, '//*[@id="PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span').text
                     temperature = driver.find_element(By.XPATH, '//*[@headers="PC3_T PC3_D' + IDList[i][0] + ' PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span[1]').text
@@ -361,9 +365,11 @@ class crawler:
                 cwbinfoList.append(cwbinfo)
             # 網頁擷取錯誤例外處理
             except:
+                print('error occured')
                 pass
 
         data = cwbinfoList
+        print('--cralwer end--')
         return data
 
     # 擷取交通部氣象局雲林縣崙背鄉 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
@@ -371,6 +377,7 @@ class crawler:
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
+        print('--cralwer start--')
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
@@ -389,9 +396,10 @@ class crawler:
             cwbinfo = {'district': '雲林縣崙背鄉', 'date': date, 'period': period, 'temperature': temperature, 'PofP': PofP}
             try:
                 while num < 3:
+                    print('try ' + str(num + 1))
                     driver.get("https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=1000912")
                     driver.implicitly_wait(10)
-                    time.sleep(2)
+                    #time.sleep(1)
                     date = driver.find_element(By.ID, 'PC3_D' + IDList[i][0] + '').text.replace("\n", " ")
                     period = driver.find_element(By.XPATH, '//*[@id="PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span').text
                     temperature = driver.find_element(By.XPATH, '//*[@headers="PC3_T PC3_D' + IDList[i][0] + ' PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span[1]').text
@@ -404,16 +412,19 @@ class crawler:
                 cwbinfoList.append(cwbinfo)
             # 網頁擷取錯誤例外處理
             except:
+                print('error occured')
                 pass
 
         data = cwbinfoList
+        print('--cralwer end--')
         return data
 
-    # 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
+# 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_BudaiInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
+        print('--cralwer start--')
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
@@ -432,9 +443,10 @@ class crawler:
             cwbinfo = {'district': '嘉義縣布袋鎮', 'date': date, 'period': period, 'temperature': temperature, 'PofP': PofP}
             try:
                 while num < 3:
+                    print('try ' + str(num + 1))
                     driver.get("https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=1001003")
                     driver.implicitly_wait(10)
-                    time.sleep(2)
+                    #time.sleep(1)
                     date = driver.find_element(By.ID, 'PC3_D' + IDList[i][0] + '').text.replace("\n", " ")
                     period = driver.find_element(By.XPATH, '//*[@id="PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span').text
                     temperature = driver.find_element(By.XPATH, '//*[@headers="PC3_T PC3_D' + IDList[i][0] + ' PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span[1]').text
@@ -447,16 +459,19 @@ class crawler:
                 cwbinfoList.append(cwbinfo)
             # 網頁擷取錯誤例外處理
             except:
+                print('error occured')
                 pass
 
         data = cwbinfoList
+        print('--cralwer end--')
         return data
 
-    # 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
+# 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_QiguInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
+        print('--cralwer start--')
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
@@ -475,9 +490,10 @@ class crawler:
             cwbinfo = {'district': '臺南市七股區', 'date': date, 'period': period, 'temperature': temperature, 'PofP': PofP}
             try:
                 while num < 3:
+                    print('try ' + str(num + 1))
                     driver.get("https://www.cwb.gov.tw/V8/C/W/Town/Town.html?TID=6701500")
                     driver.implicitly_wait(10)
-                    time.sleep(2)
+                    #time.sleep(1)
                     date = driver.find_element(By.ID, 'PC3_D' + IDList[i][0] + '').text.replace("\n", " ")
                     period = driver.find_element(By.XPATH, '//*[@id="PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span').text
                     temperature = driver.find_element(By.XPATH, '//*[@headers="PC3_T PC3_D' + IDList[i][0] + ' PC3_D' + IDList[i][0] + 'H' + IDList[i][1] + '"]/span[1]').text
@@ -490,9 +506,11 @@ class crawler:
                 cwbinfoList.append(cwbinfo)
             # 網頁擷取錯誤例外處理
             except:
+                print('error occured')
                 pass
 
         data = cwbinfoList
+        print('--cralwer end--')
         return data
 
     # 擷取今日電力供需資訊函數 1.備轉容量率
@@ -502,14 +520,16 @@ class crawler:
         # 擷取次數
         num = 0
         try:
+            print('--cralwer start--')
             while num < 3:
+                print('try ' + str(num + 1))
                 options = Options()
                 options.add_argument('--headless')
                 chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
                 driver = webdriver.Chrome(service=chrome_service, options=options)
                 driver.get("https://www.taipower.com.tw/d006/loadGraph/loadGraph/load_reserve_.html")
                 driver.implicitly_wait(10)
-                time.sleep(2)
+                #time.sleep(1)
                 reserve = driver.find_element(By.XPATH, '//*[@id="reserve"]/span').text
                 num += 1
                 # 確認是否擷取到數據 沒有最多retry三次
@@ -517,7 +537,9 @@ class crawler:
                     break
         # 網頁擷取錯誤例外處理
         except:
+            print('error occured')
             pass
 
         date = {'reserve': reserve}
+        print('--cralwer end--')
         return date
