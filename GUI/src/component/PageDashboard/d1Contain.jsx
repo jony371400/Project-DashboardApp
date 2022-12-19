@@ -446,10 +446,10 @@ const D1Contain = () => {
             setWeekTitle7(jsonData[6].dayStr)
         });
 
-        // TodayInfoFetchClick()
-        // LastDayInfoFetchClick()
-        // StatusInfoFetchClick()
-        // WeekDataInfoFetchClick()
+        TodayInfoFetchClick()
+        LastDayInfoFetchClick()
+        StatusInfoFetchClick()
+        WeekDataInfoFetchClick()
 
         console.log('- Use Effect -')
     }, [socket]);

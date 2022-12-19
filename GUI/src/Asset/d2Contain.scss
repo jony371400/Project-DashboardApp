@@ -2,17 +2,19 @@
     display: grid;
     grid-template-columns: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
     grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh;
-
+    
     .StackedBarChart1 {
+        padding-top: 50px;
         grid-row: 1 / 5;
         grid-column: 1 / 9;
-        line-height: 5vh;
+        line-height: 3vh;
     }
 
     .StackedBarChart2 {
+        padding-top: 20px;
         grid-row: 5 / 8;
         grid-column: 1 / 9;
-        line-height: 5vh;
+        line-height: 3vh;
         
     }
 
@@ -58,13 +60,15 @@
         display: flex;
 
 
-        grid-row: 8 / 10;
-        grid-column: 1 / 25;
+        grid-row: 4 / 6;
+        grid-column: 9 / 18;
 
         .right {
-            text-align: center;
             padding-top: 20px;
-            
+            .Table{
+                
+            text-align: center;
+            }
             font: size 0.5em;
 
         }
@@ -74,14 +78,13 @@
             padding: 20px;
             
             font: size 0.5em;
-            text-align: center;
             
 
-            .value{
-                
-            padding-top: 20px;
-            
-            }
+            .Table{
+                padding-left: 20px;
+                padding-right: 20px;
+                text-align: center;
+                }
         }
     }
 }

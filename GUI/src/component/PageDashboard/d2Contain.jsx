@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,11 +7,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-// import DashboardIcon from '@mui/icons-material/Dashboard';
-// import { AreaChart, LineChart, Line, BarChart, Bar, Cell, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
-import { Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import { AreaChart, LineChart, Line, BarChart, Bar, Cell, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
+
 import RefreshIcon from '@mui/icons-material/Refresh';
-// import { Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 
 const D2Contain = () => {
@@ -19,9 +20,9 @@ const D2Contain = () => {
     let jsonData
     let SpinningData
     let SupplementalData
-    // let amountData
+    let amountData
     let PowerNeeddata
-    // let Totalmomeydata
+    let Totalmomeydata
     let Weather_Lukang_Data
     let Weather_Lunbei_Data
     let Weather_Budai_Data
@@ -40,7 +41,7 @@ const D2Contain = () => {
 
     const [Spinning, setSpinning] = useState(0);        //
     const [Supplemental, setSupplemental] = useState(0);        //
-    const [PowerNeed, setPowerNeed] = useState(0);        //
+    const [PowerNeed, setPowerNeed] = useState(0+"%");        //
     const [Weather_Lukang, setWeather_Lukang] = useState(0);        //
     const [Weather_Lunbei, setWeather_Lunbei] = useState(0);        //
     const [Weather_Budai, setWeather_Budai] = useState(0);        //
@@ -544,24 +545,24 @@ const D2Contain = () => {
 
             if (T00_Temp >= 25) {
                 //price_data[0].price = fun_Electricity_Spinning_25_Up(T00_PofP, T00_Temp) * count;
-                price_data[0].price = 300 * count;
+                price_data[0].price=300* count;
             } else {
                 //price_data[0].price = fun_Electricity_Spinning_25_Dn(T00_PofP, T00_Temp) * count;
-                price_data[0].price = 300 * count;
+                price_data[0].price=300* count;
             }
             if (T00_Temp >= 25) {
                 //price_data[1].price = fun_Electricity_Spinning_25_Up(T03_PofP, T03_Temp) * count;
-                price_data[1].price = 300 * count;
+                price_data[1].price=300* count;
             } else {
                 //price_data[1].price = fun_Electricity_Spinning_25_Dn(T03_PofP, T03_Temp) * count;
-                price_data[1].price = 300 * count;
+                price_data[1].price=300* count;
             }
             if (T00_Temp >= 25) {
                 //price_data[2].price = fun_Electricity_Spinning_25_Up(T06_PofP, T06_Temp) * count;
-                price_data[2].price = 300 * count;
+                price_data[2].price=300* count;
             } else {
                 //price_data[2].price = fun_Electricity_Spinning_25_Dn(T06_PofP, T06_Temp) * count;
-                price_data[2].price = 300 * count;
+                price_data[2].price=300* count;
             }
             if (T00_Temp >= 25) {
                 price_data[3].price = fun_Electricity_Spinning_25_Up(T09_PofP, T09_Temp) * count;
@@ -582,17 +583,17 @@ const D2Contain = () => {
             }
             if (T00_Temp >= 25) {
                 //price_data[6].price = fun_Electricity_Spinning_25_Up(T18_PofP, T18_Temp) * count;
-                price_data[6].price = 399 * count;
+                price_data[6].price=399* count;
             } else {
                 //price_data[6].price = fun_Electricity_Spinning_25_Dn(T18_PofP, T18_Temp) * count;
-                price_data[6].price = 399 * count;
+                price_data[6].price=399* count;
             }
             if (T00_Temp >= 25) {
                 //price_data[7].price = fun_Electricity_Spinning_25_Up(T21_PofP, T21_Temp) * count;
-                price_data[7].price = 399 * count;
+                price_data[7].price=399* count;
             } else {
                 //price_data[7].price = fun_Electricity_Spinning_25_Dn(T21_PofP, T21_Temp) * count;
-                price_data[7].price = 399 * count;
+                price_data[7].price=399* count;
             }
 
             m_totalprice = (price_data[0].price + price_data[1].price + price_data[2].price + price_data[3].price + price_data[4].price +
@@ -609,24 +610,24 @@ const D2Contain = () => {
 
             if (T00_Temp >= 25) {
                 //price_data[0].price = fun_Electricity_Supplemental_25_Up(T00_PofP, T00_Temp) * count;
-                price_data[0].price = 220 * count;
+                price_data[0].price=220* count;
             } else {
                 //price_data[0].price = fun_Electricity_Supplemental_25_Dn(T00_PofP, T00_Temp) * count;
-                price_data[0].price = 220 * count;
+                price_data[0].price=220* count;
             }
             if (T00_Temp >= 25) {
                 //price_data[1].price = fun_Electricity_Supplemental_25_Up(T03_PofP, T03_Temp) * count;
-                price_data[1].price = 220 * count;
+                price_data[1].price=220* count;
             } else {
                 //price_data[1].price = fun_Electricity_Supplemental_25_Dn(T03_PofP, T03_Temp) * count;
-                price_data[1].price = 220 * count;
+                price_data[1].price=220* count;
             }
             if (T00_Temp >= 25) {
                 //price_data[2].price = fun_Electricity_Supplemental_25_Up(T06_PofP, T06_Temp) * count;
-                price_data[2].price = 220 * count;
+                price_data[2].price=220* count;
             } else {
                 //price_data[2].price = fun_Electricity_Supplemental_25_Dn(T06_PofP, T06_Temp) * count;
-                price_data[2].price = 220 * count;
+                price_data[2].price=220* count;
             }
             if (T00_Temp >= 25) {
                 price_data[3].price = fun_Electricity_Supplemental_25_Up(T09_PofP, T09_Temp) * count;
@@ -645,17 +646,17 @@ const D2Contain = () => {
             }
             if (T00_Temp >= 25) {
                 //price_data[6].price = fun_Electricity_Supplemental_25_Up(T18_PofP, T18_Temp) * count;
-                price_data[6].price = 299 * count;
+                price_data[6].price=299* count;
             } else {
                 //price_data[6].price = fun_Electricity_Supplemental_25_Dn(T18_PofP, T18_Temp) * count;
-                price_data[6].price = 299 * count;
+                price_data[6].price=299* count;
             }
             if (T00_Temp >= 25) {
                 //price_data[7].price = fun_Electricity_Supplemental_25_Up(T21_PofP, T21_Temp) * count;
-                price_data[7].price = 299 * count;
+                price_data[7].price=299* count;
             } else {
                 //price_data[7].price = fun_Electricity_Supplemental_25_Dn(T21_PofP, T21_Temp) * count;
-                price_data[7].price = 299 * count;
+                price_data[7].price=299* count;
             }
 
             m_totalprice = (price_data[0].price + price_data[1].price + price_data[2].price + price_data[3].price + price_data[4].price +
@@ -989,6 +990,56 @@ const D2Contain = () => {
         createWeatherDate1(<h3>降雨</h3>, <h3>{T00_PofP}</h3>, <h3>{T03_PofP}</h3>, <h3>{T06_PofP}</h3>, <h3>{T09_PofP}</h3>, <h3>{T12_PofP}</h3>, <h3>{T15_PofP}</h3>, <h3>{T18_PofP}</h3>, <h3>{T21_PofP}</h3>)
     ]
 
+    function createelectricity_dealDate1(name, value1 ,value2,value3) {
+        return { name,  value1 ,value2,value3};
+    }
+
+    const rows_electricity_deal = [
+        createelectricity_dealDate1(<h3>平均結清價格</h3>, <h3>{fmtap}</h3> ,<h3>{realtimetap}</h3>, <h3>{farthertap}</h3>),
+    ]
+
+    function createPowerNeedDate1( value) {
+        return {  value};
+    }
+
+    const rows_PowerNeed = [
+        createPowerNeedDate1(<h3>{PowerNeed}</h3>)
+    ]
+
+    //#region WebSocket
+    const [ws, setWs] = useState(null)
+
+    useEffect(() => {
+        if (ws) {
+            console.log('success connect!')
+
+        }
+
+        window.addEventListener('load', PageLoad)
+        console.log('- Use Effect -')
+    }, [ws]);
+
+    const PageLoad = () => {
+        console.log('PageLoad')
+
+        // TodayInfoFetchClick()
+        // LastDayInfoFetchClick()
+        // StatusInfoFetchClick()
+        // WeekDataInfoFetchClick()
+
+        Get_ETP_Deal_Spinning_Click()
+        Get_ETP_Deal_Supplemental_Click()
+        Weather_Lukang_Click()
+        electricity_deal_Click()
+        PowerNeed_Click()
+
+        setInterval(() => {
+            console.log('Here')
+        }, 600000);
+    }
+
+
+
     return (
         <div className='d2Contain'>
             <div className="StackedBarChart1">
@@ -1043,11 +1094,11 @@ const D2Contain = () => {
                         <ResponsiveContainer width={650} height={230}>
                             <BarChart data={tatleprice}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="time" label={{ value: '時段', angle: 0, position: 'Left' }} />
+                                <XAxis dataKey="time" />
                                 <YAxis domain={[0, 1000]} padding={{ top: 30 }} label={{ value: '元', angle: 0, position: 'insideTop' }} />
                                 <Tooltip />
                                 <Legend />
-                                <Bar dataKey="price" fill="#e2d559" />
+                                <Bar dataKey="price" fill="#97e259" />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
@@ -1102,18 +1153,50 @@ const D2Contain = () => {
             </div>
             <div className="area_4">
                 <div className="right">
-                    <RefreshIcon onClick={electricity_deal_Click}></RefreshIcon>
-                    <p4>昨日市場資訊(平均結清價格)</p4>
-                    <div className="box">
-                        <div className="info2">調頻備轉 {fmtap}</div>
-                        <div className="info3">即時備轉 {realtimetap}</div>
-                        <div className="info4">補充備轉 {farthertap}</div>
-                    </div>
+                    <RefreshIcon className="RefreshIcon" onClick={electricity_deal_Click}></RefreshIcon>
+                    <p4>昨日市場資訊</p4>
+                    <TableContainer component={Paper} className='Table'>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell></TableCell>
+                                    <TableCell align="center"><h3>調頻備轉</h3></TableCell>
+                                    <TableCell align="center"><h3>即時備轉</h3></TableCell>
+                                    <TableCell align="center"><h3>補充備轉</h3></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows_electricity_deal.map((row) => (
+                                    <TableRow>
+                                        <TableCell align="center">{row.name}</TableCell>
+                                        <TableCell align="center">{row.value1}</TableCell>
+                                        <TableCell align="center">{row.value2}</TableCell>
+                                        <TableCell align="center">{row.value3}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </div>
                 <div className="left">
-                    <RefreshIcon onClick={PowerNeed_Click}></RefreshIcon>
-                    <p4>明日備轉容量預測</p4>
-                    <div className="value">{PowerNeed}%</div>
+                    <RefreshIcon className="RefreshIcon" onClick={PowerNeed_Click}></RefreshIcon>
+                    <p4>明日預測值</p4>
+                    <TableContainer component={Paper} className='Table'>
+                        <Table>
+                        <TableHead>
+                                <TableRow>
+                                    <TableCell align="center"><h3>備轉容量</h3></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows_PowerNeed.map((row) => (
+                                    <TableRow>
+                                    <TableCell align='center'>{row.value}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </div>
             </div>
         </div>

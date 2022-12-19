@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Nov 18 11:32:01 2022
-Modified on 2022-12-16
+Modified on 2022-12-18-V02
 
 @author: User
 """
@@ -63,29 +63,156 @@ def pyGet_TPC_SolarInfo():
     eSolar_data = CrawlerReq.solar_info(tnow_local)
     return jsonify(eSolar_data)
 
+########## GET -- ETP information ##########
+tick_start_GetEtp = 0
+eDeal_idx = 0
+eDeal_data0 = {
+    "FMTransferAvePrice": "572",
+    "fartherTransferAvePrice": "233",
+    "realtimeTransferAvePrice": "358"
+}
+
+eDeal_data1 = {
+    "FMTransferAvePrice": "572",
+    "fartherTransferAvePrice": "233",
+    "realtimeTransferAvePrice": "358"
+}
+
+eSpinning_idx = 0
+eDeal_Spinning0 = [{"StateOwnedStored":"454.2","hour":"0","investorownedStored":"45.9","nodealStored":"500.2","price":"300"},
+                   {"StateOwnedStored":"366","hour":"1","investorownedStored":"44.2","nodealStored":"535.7","price":"300"},
+                   {"StateOwnedStored":"366","hour":"2","investorownedStored":"47.3","nodealStored":"587.2","price":"399"},
+                   {"StateOwnedStored":"366","hour":"3","investorownedStored":"47.9","nodealStored":"585.7","price":"399"},
+                   {"StateOwnedStored":"370.2","hour":"4","investorownedStored":"45.6","nodealStored":"584.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"5","investorownedStored":"48","nodealStored":"586.1","price":"399"},
+                   {"StateOwnedStored":"454.2","hour":"6","investorownedStored":"45.9","nodealStored":"500.2","price":"300"},
+                   {"StateOwnedStored":"396.5","hour":"7","investorownedStored":"45.9","nodealStored":"537.5","price":"399"},
+                   {"StateOwnedStored":"366","hour":"8","investorownedStored":"46.9","nodealStored":"500.1","price":"300"},
+                   {"StateOwnedStored":"367.6","hour":"9","investorownedStored":"46.8","nodealStored":"585.7","price":"399"},
+                   {"StateOwnedStored":"366","hour":"10","investorownedStored":"44.5","nodealStored":"587.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"11","investorownedStored":"42.6","nodealStored":"591.6","price":"399"},
+                   {"StateOwnedStored":"454.2","hour":"12","investorownedStored":"45.9","nodealStored":"535.7","price":"300"},
+                   {"StateOwnedStored":"418.3","hour":"13","investorownedStored":"44.4","nodealStored":"537.5","price":"399"},
+                   {"StateOwnedStored":"455.7","hour":"14","investorownedStored":"47.9","nodealStored":"588.4","price":"399"},
+                   {"StateOwnedStored":"370.2","hour":"15","investorownedStored":"45.6","nodealStored":"584.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"16","investorownedStored":"44.5","nodealStored":"586.1","price":"399"},
+                   {"StateOwnedStored":"366","hour":"17","investorownedStored":"42.6","nodealStored":"591.6","price":"399"},
+                   {"StateOwnedStored":"454.2","hour":"18","investorownedStored":"45.9","nodealStored":"500.2","price":"300"},
+                   {"StateOwnedStored":"420.3","hour":"19","investorownedStored":"45.9","nodealStored":"557.8","price":"300"},
+                   {"StateOwnedStored":"366","hour":"20","investorownedStored":"46.9","nodealStored":"587.2","price":"399"},
+                   {"StateOwnedStored":"366","hour":"21","investorownedStored":"47.9","nodealStored":"585.7","price":"399"},
+                   {"StateOwnedStored":"366","hour":"22","investorownedStored":"48","nodealStored":"587.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"23","investorownedStored":"48","nodealStored":"586.1","price":"399"}]
+
+eDeal_Spinning1 =[{"StateOwnedStored":"454.2","hour":"0","investorownedStored":"45.9","nodealStored":"500.2","price":"300"},
+                   {"StateOwnedStored":"366","hour":"1","investorownedStored":"44.2","nodealStored":"535.7","price":"300"},
+                   {"StateOwnedStored":"366","hour":"2","investorownedStored":"47.3","nodealStored":"587.2","price":"399"},
+                   {"StateOwnedStored":"366","hour":"3","investorownedStored":"47.9","nodealStored":"585.7","price":"399"},
+                   {"StateOwnedStored":"370.2","hour":"4","investorownedStored":"45.6","nodealStored":"584.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"5","investorownedStored":"48","nodealStored":"586.1","price":"399"},
+                   {"StateOwnedStored":"454.2","hour":"6","investorownedStored":"45.9","nodealStored":"500.2","price":"300"},
+                   {"StateOwnedStored":"396.5","hour":"7","investorownedStored":"45.9","nodealStored":"537.5","price":"399"},
+                   {"StateOwnedStored":"366","hour":"8","investorownedStored":"46.9","nodealStored":"500.1","price":"300"},
+                   {"StateOwnedStored":"367.6","hour":"9","investorownedStored":"46.8","nodealStored":"585.7","price":"399"},
+                   {"StateOwnedStored":"366","hour":"10","investorownedStored":"44.5","nodealStored":"587.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"11","investorownedStored":"42.6","nodealStored":"591.6","price":"399"},
+                   {"StateOwnedStored":"454.2","hour":"12","investorownedStored":"45.9","nodealStored":"535.7","price":"300"},
+                   {"StateOwnedStored":"418.3","hour":"13","investorownedStored":"44.4","nodealStored":"537.5","price":"399"},
+                   {"StateOwnedStored":"455.7","hour":"14","investorownedStored":"47.9","nodealStored":"588.4","price":"399"},
+                   {"StateOwnedStored":"370.2","hour":"15","investorownedStored":"45.6","nodealStored":"584.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"16","investorownedStored":"44.5","nodealStored":"586.1","price":"399"},
+                   {"StateOwnedStored":"366","hour":"17","investorownedStored":"42.6","nodealStored":"591.6","price":"399"},
+                   {"StateOwnedStored":"454.2","hour":"18","investorownedStored":"45.9","nodealStored":"500.2","price":"300"},
+                   {"StateOwnedStored":"420.3","hour":"19","investorownedStored":"45.9","nodealStored":"557.8","price":"300"},
+                   {"StateOwnedStored":"366","hour":"20","investorownedStored":"46.9","nodealStored":"587.2","price":"399"},
+                   {"StateOwnedStored":"366","hour":"21","investorownedStored":"47.9","nodealStored":"585.7","price":"399"},
+                   {"StateOwnedStored":"366","hour":"22","investorownedStored":"48","nodealStored":"587.4","price":"399"},
+                   {"StateOwnedStored":"366","hour":"23","investorownedStored":"48","nodealStored":"586.1","price":"399"}]
+
+eSuppl_idx = 0
+eDeal_Suppl0 = [{"StateOwnedStored":"925.4","hour":"0","investorownedStored":"87.2","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"932.1","hour":"1","investorownedStored":"67.9","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"933.2","hour":"2","investorownedStored":"75.5","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"920.2","hour":"3","investorownedStored":"80.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"934","hour":"4","investorownedStored":"66","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.7","hour":"5","investorownedStored":"66.4","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"912.8","hour":"6","investorownedStored":"87.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.2","hour":"7","investorownedStored":"75.5","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"919.3","hour":"8","investorownedStored":"80.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"919.3","hour":"9","investorownedStored":"80.7","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"933.7","hour":"10","investorownedStored":"66.4","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.3","hour":"11","investorownedStored":"66.8","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"912.8","hour":"12","investorownedStored":"87.2","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"920.2","hour":"13","investorownedStored":"79.8","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"912.3","hour":"14","investorownedStored":"79.8","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"928","hour":"15","investorownedStored":"80.7","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"915.3","hour":"16","investorownedStored":"84.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.3","hour":"17","investorownedStored":"66.8","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"912.8","hour":"18","investorownedStored":"87.2","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"932.1","hour":"19","investorownedStored":"79.8","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"933.2","hour":"20","investorownedStored":"79.8","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"934","hour":"21","investorownedStored":"87.7","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"912.3","hour":"22","investorownedStored":"66.4","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"928.1","hour":"23","investorownedStored":"66.8","nodealStored":"0","price":"245"}]
+
+eDeal_Suppl1 = [{"StateOwnedStored":"925.4","hour":"0","investorownedStored":"87.2","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"932.1","hour":"1","investorownedStored":"67.9","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"933.2","hour":"2","investorownedStored":"75.5","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"920.2","hour":"3","investorownedStored":"80.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"934","hour":"4","investorownedStored":"66","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.7","hour":"5","investorownedStored":"66.4","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"912.8","hour":"6","investorownedStored":"87.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.2","hour":"7","investorownedStored":"75.5","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"919.3","hour":"8","investorownedStored":"80.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"919.3","hour":"9","investorownedStored":"80.7","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"933.7","hour":"10","investorownedStored":"66.4","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.3","hour":"11","investorownedStored":"66.8","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"912.8","hour":"12","investorownedStored":"87.2","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"920.2","hour":"13","investorownedStored":"79.8","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"912.3","hour":"14","investorownedStored":"79.8","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"928","hour":"15","investorownedStored":"80.7","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"915.3","hour":"16","investorownedStored":"84.7","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"933.3","hour":"17","investorownedStored":"66.8","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"912.8","hour":"18","investorownedStored":"87.2","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"932.1","hour":"19","investorownedStored":"79.8","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"933.2","hour":"20","investorownedStored":"79.8","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"934","hour":"21","investorownedStored":"87.7","nodealStored":"0","price":"220"},
+                {"StateOwnedStored":"912.3","hour":"22","investorownedStored":"66.4","nodealStored":"0","price":"245"},
+                {"StateOwnedStored":"928.1","hour":"23","investorownedStored":"66.8","nodealStored":"0","price":"245"}]
+
+
 @app.route("/Get_ETP_MktInfo")
 def pyGet_ETP_MktInfo():
-    tnow_local =  datetime.datetime.today().date()
-    eDeal_data = CrawlerReq.electricity_deal(tnow_local)
-    return jsonify(eDeal_data)
+    #tnow_local =  datetime.datetime.today().date()
+    #eDeal_data = CrawlerReq.electricity_deal(tnow_local)
+    if (eDeal_idx == 0):
+        return jsonify(eDeal_data0)
+    else:
+        return jsonify(eDeal_data1)
 
 @app.route("/Get_ETP_Deal_Spinning")
 def pyGet_ETP_Deal_Spinning():
-    tnow_local =  datetime.datetime.today().date()
-    eDeal_Spinning = CrawlerReq.electricity_deal_realtimeStored(tnow_local, CrawlerReq.eacHourValue)
-    return jsonify(eDeal_Spinning)
+    #tnow_local =  datetime.datetime.today().date()
+    #eDeal_Spinning = CrawlerReq.electricity_deal_realtimeStored(tnow_local, CrawlerReq.eacHourValue)
+    if (eSpinning_idx == 0):
+        return jsonify(eDeal_Spinning0)
+    else:
+        return jsonify(eDeal_Spinning1)
 
 @app.route("/Get_ETP_Deal_Supplemental")
 def pyGet_ETP_Deal_Supplemental():
-    tnow_local =  datetime.datetime.today().date()
-    eDeal_Supplemental = CrawlerReq.electricity_deal_replenishStore(tnow_local, CrawlerReq.eacHourValue)
-    return jsonify(eDeal_Supplemental)
-
+    #tnow_local =  datetime.datetime.today().date()
+    #eDeal_Supplemental = CrawlerReq.electricity_deal_replenishStore(tnow_local, CrawlerReq.eacHourValue)
+    #return jsonify(eDeal_Supplemental)
+    if (eSuppl_idx == 0):
+        return jsonify(eDeal_Suppl0)
+    else:
+        return jsonify(eDeal_Suppl1)
 
 
 ########## GET and POST ##########
 #area_id = 'Lukang'
-#weather2req ={"weather":"none"}    
+weather2req ={"weather":"none"}    
 
 #def Read_CWB_Weather ():
 #    global area_id
@@ -143,6 +270,52 @@ def pyGet_CWB_Weather2FC():
     print (weather2req)
     return jsonify(weather2req)
 
+##################################
+
+def thread_ETP():
+    global tick_start_GetEtp
+    global eDeal_idx
+    global eDeal_data0
+    global eDeal_data1
+    global eSpinning_idx
+    global eDeal_Spinning0
+    global eDeal_Spinning1
+    global eSuppl_idx
+    global eDeal_Suppl0
+    global eDeal_Suppl1
+
+    print ('thread_ETP to start')
+
+    tick_start_GetEtp = 0
+    while True:
+        tick_end = time.perf_counter()
+        if (tick_end-tick_start_GetEtp)>=233 or tick_start_GetEtp == 0: # 233 seconds about 4 minutes #
+            tick_start_GetEtp = tick_end
+            tnow_local =  datetime.datetime.today().date()
+            print ('--------------------------- thread_ETP time up ', tnow_local)
+            if (eDeal_idx == 0):
+                eDeal_data1 = CrawlerReq.electricity_deal(tnow_local)
+                eDeal_idx = 1
+            else:
+                eDeal_data0 = CrawlerReq.electricity_deal(tnow_local)
+                eDeal_idx = 0
+            print ('eDeal_data ready = ', eDeal_idx)
+
+            if (eSpinning_idx == 0):
+                eDeal_Spinning1 = CrawlerReq.electricity_deal_realtimeStored(tnow_local, CrawlerReq.eacHourValue)
+                eSpinning_idx = 1
+            else:
+                eDeal_Spinning0 = CrawlerReq.electricity_deal_realtimeStored(tnow_local, CrawlerReq.eacHourValue)
+                eSpinning_idx = 0
+            print ('eDeal_Spinning ready = ', eSpinning_idx)
+
+            if (eSuppl_idx == 0):
+                eDeal_Suppl1 = CrawlerReq.electricity_deal_replenishStore(tnow_local, CrawlerReq.eacHourValue)
+                eSuppl_idx = 1
+            else:
+                eDeal_Suppl0 = CrawlerReq.electricity_deal_replenishStore(tnow_local, CrawlerReq.eacHourValue)
+                eSuppl_idx = 0
+            print ('eDeal_Suppl ready = ', eSuppl_idx)
 
 
 ##################################
@@ -151,15 +324,15 @@ tick_start_emit = 0
 def thread_TPC():
     global tick_start_emit
 
-    print ('thread to start')    
+    print ('TPC thread to start')
+    
     tick_start_emit = 0
     while True:
         tick_end = time.perf_counter()
-        if (tick_end-tick_start_emit)>=600: # 600 seconds = 10 minutes #
-            tick_start_emit = tick_end
-            
+        if (tick_end-tick_start_emit)>=600 or tick_start_emit == 0: # 600 seconds = 10 minutes #
+            tick_start_emit = tick_end           
             tnow_local = datetime.datetime.today()
-            print ('-----------------------', tnow_local)
+            print ('--------------------------- TPC thread time up ', tnow_local)
 
             ##### TPC - Previous information (yesterday) #####
             print ('TPC - Get Yesterday ----- Start')
@@ -259,12 +432,22 @@ if __name__ == "__main__":
     try:
         print('App Run !')
         # create threading () #       
-        # pth_TPC2Push = threading.Thread(target = thread_TPC)
-        # pth_TPC2Push.start()
+        pth_TPC2Push = threading.Thread(target = thread_TPC)
+        pth_ETP = threading.Thread(target = thread_ETP)
+
+        pth_TPC2Push.start()
+        pth_ETP.start()
+        
+        #pth_TPC2Push.join()
+        #pth_ETP.join()
+        
+
+        # app.run () / socketio.run() should be used 
+        #   after the the creation of the thread and the initialization of variables
+        #app.run()
+        # allow_unsafe_werkzeug=True only for my PC #
         #socketio.run(app , port= 5001, allow_unsafe_werkzeug=True)
         socketio.run(app , port= 5001)
-        # app.run()
-        print('1234')
 
     except KeyboardInterrupt:
         print('Interrupted')

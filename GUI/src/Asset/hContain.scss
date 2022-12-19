@@ -1,6 +1,67 @@
 .hContain {
-    .hicon{
-        width: 100vw;
+
+    display: grid;
+    grid-template-columns: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+    grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh;
+
+    .nbicon {
+        grid-row: 1 / 8;
+        grid-column: 1 / 9;
+        align-items: center;
+        text-decoration: none;
+        //color: rgb(255, 255, 255);
+        color: rgba(217, 255, 47, 0.712);
+        //background-color: greenyellow;
+
+        width: 50vw;
         height: 92vh;
+    }
+
+    .nbtext {
+
+        grid-row: 3 / 4;
+        grid-column: 11 / 20;
+        font-size: 50px;
+        line-height: 10vh;
+        //background-color: red;
+        
+    }
+
+    .content {
+        
+        grid-row: 4 / 10;
+        grid-column: 11 / 11;
+        font-size: 30px;
+        
+        width: 50vw;
+        .content1 {
+
+            //background-color: red;
+        }
+
+        .content2 {
+
+            //background-color: yellow;
+        }
+
+        .content3 {
+
+            //background-color: green;
+        }
+
+        .content4 {
+
+            //background-color: orange;
+        }
+
+        .content5 {
+
+            //background-color: purple;
+        }
+
+        .content6 {
+
+            //background-color: pink;
+        }
     }
 }
