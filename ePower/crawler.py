@@ -259,6 +259,10 @@ class crawler:
 
     #擷取電力交易平台即時備轉 當天24小時1.小時 2.得標容量(國營) 3.得標容量(民營) 4.得標容量(非交易) 5.結清價格
     def electricity_deal_realtimeStored(self, eacHourValue, strDate=datetime.datetime.today().date()):
+        print('electricity_deal_realtimeStored Start')
+        print('eacHourValue : ' , eacHourValue)
+        print('strDate : ' , strDate)
+
         uml = r'https://etp.taipower.com.tw/'
         hourlyList = []
         futures = []
@@ -267,13 +271,30 @@ class crawler:
         chrome_service = fs.Service(executable_path=ChromeDriverManager().install())
         driver = webdriver.Chrome(service=chrome_service, options=options)
         pool = ThreadPoolExecutor(max_workers=4)
+        print('uml : ' , uml)
+        print('hourlyList : ' , hourlyList)
+        print('futures : ' , futures)
+        print('options : ' , options)
+        print('chrome_service : ' , chrome_service)
+        print('driver : ' , driver)
+        print('pool : ' , pool)
+
         # 多工執行
-        for i in range(0, 24, 6):
+        print('Thread Start')
+        for i in range(0, 24, 24):
+            print('i : ' , i)
             future = pool.submit(eacHourValue, driver, i, '6')
+            print('future : ' , future)
             futures.append(future)
+            print('futures : ' , futures)
         pool.shutdown()
+        print('Thread End')
+
+        print('hourlyList Start')
         for fu in futures:
             hourlyList.extend(fu.result())
+        print('hourlyList End')
+
         print('--cralwer end--')
         return hourlyList
 
@@ -300,11 +321,15 @@ class crawler:
         #driver = webdriver.Chrome(service=chrome_service, options=options)
         driver.get('https://etp.taipower.com.tw/')
         driver.implicitly_wait(10)
-        #time.sleep(1)
+        time.sleep(1)
         hourlyList = []
         actions = ActionChains(driver)
-        print('start', h, 'h value get')
+        
+        print('Loop Start : ', h , 'h value get')
         for i in range(h, h + 6):
+            print('i : ' , i)
+            print('h : ' , h)
+            
             StateOwnedStored = 'null'
             # 得標容量(民營)
             investorownedStored = 'null'
@@ -312,17 +337,27 @@ class crawler:
             nodealStored = 'null'
             # 結清價格
             price = 'null'
+            
             for j in range(0, 2):
+                print('j : ' , j)
                 actions.move_to_element(driver.find_element(By.XPATH,'(//*[@class="recharts-layer recharts-bar-rectangles"])[' + n + ']/*/*[' + str(i + 1) + ']'))
                 actions.perform()
                 time.sleep(0.2)
-            StateOwnedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[0].text
-            investorownedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[1].text
-            nodealStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[2].text
-            price = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[3].text
+                print('j end')
+            
+            print('--------' , driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value"))
+            # StateOwnedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[0].text
+            # investorownedStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[1].text
+            # nodealStored = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[2].text
+            # price = driver.find_elements(By.CLASS_NAME, "recharts-tooltip-item-value")[3].text
+
             hourly = {'hour': str(i), 'StateOwnedStored': str(StateOwnedStored), 'investorownedStored': str(investorownedStored), 'nodealStored': str(nodealStored), 'price': str(price)}
             hourlyList.append(hourly)
-        print('end', h, 'h value get')
+            print('hourly : ' , hourly)
+            print('hourlyList : ' , hourlyList)
+            print('end', h, 'h value get')
+
+        print('Loop End')
         return hourlyList
 
     # 擷取交通部氣象局彰化縣鹿港鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
@@ -419,7 +454,7 @@ class crawler:
         print('--cralwer end--')
         return data
 
-# 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
+    # 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_BudaiInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
@@ -466,7 +501,7 @@ class crawler:
         print('--cralwer end--')
         return data
 
-# 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
+    # 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_QiguInfo(self, strDate=datetime.datetime.today().date()):
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'

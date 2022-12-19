@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Nov 18 11:32:01 2022
-Modified on 2022-12-15
+Modified on 2022-12-16
+
 @author: User
 """
-
 import sys,os
-import datetime
-import threading
-import time
+
 from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
+import datetime
+import threading
+import time
+
 from flask_socketio import SocketIO, emit, send
+
 from crawler import crawler as CrawlerReq
 
 app = Flask(__name__)
@@ -30,7 +33,9 @@ def pyConnTest():
     Tnow_local =  datetime.datetime.today()
     return jsonify(Tnow_local)
 
+
 ########## GET only ##########
+
 @app.route("/Get_TPC_PowerNeed_Pre")
 def pyGet_TPC_PowerNeed_Pre():
     tnow_local =  datetime.datetime.today().date()    
@@ -76,7 +81,33 @@ def pyGet_ETP_Deal_Supplemental():
     eDeal_Supplemental = CrawlerReq.electricity_deal_replenishStore(tnow_local, CrawlerReq.eacHourValue)
     return jsonify(eDeal_Supplemental)
 
+
+
 ########## GET and POST ##########
+#area_id = 'Lukang'
+#weather2req ={"weather":"none"}    
+
+#def Read_CWB_Weather ():
+#    global area_id
+#    global weather2req
+#    tnow_local =  datetime.datetime.today().date()
+#    weather2req ={"weather":"none"}
+#    if (area_id == 'Lukang'):
+#        print ("Lukang----")
+#        weather2req = CrawlerReq.cwb_LugangInfo(tnow_local)
+#    elif (area_id == 'Lunbei'):
+#        print ("Lunbei---")
+#        weather2req = CrawlerReq.cwb_LunbeiInfo(tnow_local)
+#    elif (area_id == 'Budai'):
+#        print ("Budai---")
+#        weather2req = CrawlerReq.cwb_BudaiInfo(tnow_local)
+#    elif (area_id == 'Qigu'):
+#        print ("Qigu---")
+#        weather2req = CrawlerReq.cwb_QiguInfo(tnow_local)
+#    else:
+#        print ("error")
+        #return request.get_json()
+
 @app.route('/Get_CWB_Weather2FC', methods=['POST'])
 def pyGet_CWB_Weather2FC():
     global area_id
@@ -112,8 +143,11 @@ def pyGet_CWB_Weather2FC():
     print (weather2req)
     return jsonify(weather2req)
 
+
+
 ##################################
 tick_start_emit = 0
+
 def thread_TPC():
     global tick_start_emit
 
@@ -121,7 +155,7 @@ def thread_TPC():
     tick_start_emit = 0
     while True:
         tick_end = time.perf_counter()
-        if (tick_end-tick_start_emit)>=30: # 600 seconds = 10 minutes #
+        if (tick_end-tick_start_emit)>=600: # 600 seconds = 10 minutes #
             tick_start_emit = tick_end
             
             tnow_local = datetime.datetime.today()
@@ -155,6 +189,7 @@ def thread_TPC():
             socketio.emit('StatusInfo' , eSolar_data , broadcast = True)
             print ('Solar emit OK ----- End')
             
+
 ##################################
 # WebSocket Test
 @app.route('/SocketSendTest')
@@ -191,9 +226,9 @@ def UpdateLastDayInfo():
 def UpdateStatusInfo():
     print('Test Begin')
     tnow_local = datetime.datetime.today().date()
-    eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
-    print(eInfo_Next)
-    socketio.emit('StatusInfo' , eInfo_Next , broadcast = True)
+    eSolar_data = CrawlerReq.solar_info(tnow_local)
+    print(eSolar_data)
+    socketio.emit('StatusInfo' , eSolar_data , broadcast = True)
     print('Send Success!')
     print('Test End')
     return 'Success'
@@ -202,9 +237,9 @@ def UpdateStatusInfo():
 def UpdateWeekDataInfo():
     print('Test Begin')
     tnow_local = datetime.datetime.today().date()
-    eSolar_data = CrawlerReq.solar_info(tnow_local)
-    print(eSolar_data)
-    socketio.emit('WeekDataInfo' , eSolar_data , broadcast = True)
+    eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
+    print(eInfo_Next)
+    socketio.emit('WeekDataInfo' , eInfo_Next , broadcast = True)
     print('Send Success!')
     print('Test End')
     return 'Success'
@@ -224,10 +259,13 @@ if __name__ == "__main__":
     try:
         print('App Run !')
         # create threading () #       
-        pth_TPC2Push = threading.Thread(target = thread_TPC)
+        # pth_TPC2Push = threading.Thread(target = thread_TPC)
         # pth_TPC2Push.start()
-        # socketio.run(app , port= 5001, allow_unsafe_werkzeug=True)
+        #socketio.run(app , port= 5001, allow_unsafe_werkzeug=True)
         socketio.run(app , port= 5001)
+        # app.run()
+        print('1234')
+
     except KeyboardInterrupt:
         print('Interrupted')
 

@@ -84,6 +84,15 @@ const D1Contain = () => {
     const [SunCC, setSunCC] = useState(0);
     const [SunCCR, setSunCCR] = useState(0);
     const [SunLight, setSunLight] = useState('black');
+
+    const [WeekTitle1, setWeekTitle1] = useState('星期');
+    const [WeekTitle2, setWeekTitle2] = useState('星期');
+    const [WeekTitle3, setWeekTitle3] = useState('星期');
+    const [WeekTitle4, setWeekTitle4] = useState('星期');
+    const [WeekTitle5, setWeekTitle5] = useState('星期');
+    const [WeekTitle6, setWeekTitle6] = useState('星期');
+    const [WeekTitle7, setWeekTitle7] = useState('星期');
+
     //#endregion
 
     //#region Event
@@ -270,14 +279,6 @@ const D1Contain = () => {
         setSunCC(jsonData[6].value)
         setSunCCR(jsonData[6].percent)
 
-        // console.log('MonState : ', jsonData[0].lightState)
-        // console.log('TueState : ', jsonData[1].lightState)
-        // console.log('WedState : ', jsonData[2].lightState)
-        // console.log('ThuState : ', jsonData[3].lightState)
-        // console.log('FriState : ', jsonData[4].lightState)
-        // console.log('SatState : ', jsonData[5].lightState)
-        // console.log('SunState : ', jsonData[6].lightState)
-
         setMonLight(jsonData[0].lightState)
         setTueLight(jsonData[1].lightState)
         setWedLight(jsonData[2].lightState)
@@ -285,6 +286,14 @@ const D1Contain = () => {
         setFriLight(jsonData[4].lightState)
         setSatLight(jsonData[5].lightState)
         setSunLight(jsonData[6].lightState)
+
+        setWeekTitle1(jsonData[0].dayStr)
+        setWeekTitle2(jsonData[1].dayStr)
+        setWeekTitle3(jsonData[2].dayStr)
+        setWeekTitle4(jsonData[3].dayStr)
+        setWeekTitle5(jsonData[4].dayStr)
+        setWeekTitle6(jsonData[5].dayStr)
+        setWeekTitle7(jsonData[6].dayStr)
     }
     //#endregion
 
@@ -420,14 +429,6 @@ const D1Contain = () => {
             setSunCC(jsonData[6].value)
             setSunCCR(jsonData[6].percent)
 
-            // console.log('MonState : ', jsonData[0].lightState)
-            // console.log('TueState : ', jsonData[1].lightState)
-            // console.log('WedState : ', jsonData[2].lightState)
-            // console.log('ThuState : ', jsonData[3].lightState)
-            // console.log('FriState : ', jsonData[4].lightState)
-            // console.log('SatState : ', jsonData[5].lightState)
-            // console.log('SunState : ', jsonData[6].lightState)
-
             setMonLight(jsonData[0].lightState)
             setTueLight(jsonData[1].lightState)
             setWedLight(jsonData[2].lightState)
@@ -435,12 +436,21 @@ const D1Contain = () => {
             setFriLight(jsonData[4].lightState)
             setSatLight(jsonData[5].lightState)
             setSunLight(jsonData[6].lightState)
+
+            setWeekTitle1(jsonData[0].dayStr)
+            setWeekTitle2(jsonData[1].dayStr)
+            setWeekTitle3(jsonData[2].dayStr)
+            setWeekTitle4(jsonData[3].dayStr)
+            setWeekTitle5(jsonData[4].dayStr)
+            setWeekTitle6(jsonData[5].dayStr)
+            setWeekTitle7(jsonData[6].dayStr)
         });
 
         // TodayInfoFetchClick()
         // LastDayInfoFetchClick()
         // StatusInfoFetchClick()
         // WeekDataInfoFetchClick()
+
         console.log('- Use Effect -')
     }, [socket]);
 
@@ -571,13 +581,13 @@ const D1Contain = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell></TableCell>
-                                    <TableCell align="center"><h3>一</h3></TableCell>
-                                    <TableCell align="center"><h3>二</h3></TableCell>
-                                    <TableCell align="center"><h3>三</h3></TableCell>
-                                    <TableCell align="center"><h3>四</h3></TableCell>
-                                    <TableCell align="center"><h3>五</h3></TableCell>
-                                    <TableCell align="center"><h3>六</h3></TableCell>
-                                    <TableCell align="center"><h3>日</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle1}</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle2}</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle3}</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle4}</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle5}</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle6}</h3></TableCell>
+                                    <TableCell align="center"><h3>{WeekTitle7}</h3></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -647,14 +657,14 @@ const D1Contain = () => {
                     <h4>被轉容量50萬千瓦以下</h4>
                 </div>
 
-                <div className='d1Contain-Contain-GridTest'>
+                {/* <div className='d1Contain-Contain-GridTest'>
                     <button onClick={FetchClick}>Fetch Test</button>
                     <p>{isId}</p>
                     <p>{isName}</p>
                     <button onClick={sendMessage}>WebSocket Test</button>
                     <h1> Recived: </h1>
                     {messageReceived}
-                </div>
+                </div> */}
             </div>
 
         </div>
