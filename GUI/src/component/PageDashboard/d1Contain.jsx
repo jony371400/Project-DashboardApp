@@ -477,7 +477,7 @@ const D1Contain = () => {
 
                 <div className='d1Contain-Contain-Title4'>
                     <RefreshIcon className="nbmicon" onClick={WeekDataInfoFetchClick} />
-                    <h3>本週電力資訊</h3>
+                    <h3>未來一週電力資訊</h3>
                 </div>
 
                 <div className='d1Contain-Contain-Title5'>

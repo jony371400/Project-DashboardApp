@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,7 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { AreaChart, LineChart, Line, BarChart, Bar, Cell, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
-
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Button } from '@mui/material';
 
@@ -41,7 +39,7 @@ const D2Contain = () => {
 
     const [Spinning, setSpinning] = useState(0);        //
     const [Supplemental, setSupplemental] = useState(0);        //
-    const [PowerNeed, setPowerNeed] = useState(0+"%");        //
+    const [PowerNeed, setPowerNeed] = useState(0 + "%");        //
     const [Weather_Lukang, setWeather_Lukang] = useState(0);        //
     const [Weather_Lunbei, setWeather_Lunbei] = useState(0);        //
     const [Weather_Budai, setWeather_Budai] = useState(0);        //
@@ -385,7 +383,6 @@ const D2Contain = () => {
         }
     };
 
-
     const weather_Change_copy = event => {
         console.log("EVENT" + event.target.value);
         setweather_cbbox_item(event.target.value);
@@ -484,6 +481,7 @@ const D2Contain = () => {
                 .catch((error) => console.log('Error : ', error))
         }
     };
+
     //#region 試算備轉價格 Fun
     //補充備轉 Temp>25
     var fun_Electricity_Supplemental_25_Up = function (pofp, temp) {
@@ -545,24 +543,24 @@ const D2Contain = () => {
 
             if (T00_Temp >= 25) {
                 //price_data[0].price = fun_Electricity_Spinning_25_Up(T00_PofP, T00_Temp) * count;
-                price_data[0].price=300* count;
+                price_data[0].price = 300 * count;
             } else {
                 //price_data[0].price = fun_Electricity_Spinning_25_Dn(T00_PofP, T00_Temp) * count;
-                price_data[0].price=300* count;
+                price_data[0].price = 300 * count;
             }
             if (T00_Temp >= 25) {
                 //price_data[1].price = fun_Electricity_Spinning_25_Up(T03_PofP, T03_Temp) * count;
-                price_data[1].price=300* count;
+                price_data[1].price = 300 * count;
             } else {
                 //price_data[1].price = fun_Electricity_Spinning_25_Dn(T03_PofP, T03_Temp) * count;
-                price_data[1].price=300* count;
+                price_data[1].price = 300 * count;
             }
             if (T00_Temp >= 25) {
                 //price_data[2].price = fun_Electricity_Spinning_25_Up(T06_PofP, T06_Temp) * count;
-                price_data[2].price=300* count;
+                price_data[2].price = 300 * count;
             } else {
                 //price_data[2].price = fun_Electricity_Spinning_25_Dn(T06_PofP, T06_Temp) * count;
-                price_data[2].price=300* count;
+                price_data[2].price = 300 * count;
             }
             if (T00_Temp >= 25) {
                 price_data[3].price = fun_Electricity_Spinning_25_Up(T09_PofP, T09_Temp) * count;
@@ -583,17 +581,17 @@ const D2Contain = () => {
             }
             if (T00_Temp >= 25) {
                 //price_data[6].price = fun_Electricity_Spinning_25_Up(T18_PofP, T18_Temp) * count;
-                price_data[6].price=399* count;
+                price_data[6].price = 399 * count;
             } else {
                 //price_data[6].price = fun_Electricity_Spinning_25_Dn(T18_PofP, T18_Temp) * count;
-                price_data[6].price=399* count;
+                price_data[6].price = 399 * count;
             }
             if (T00_Temp >= 25) {
                 //price_data[7].price = fun_Electricity_Spinning_25_Up(T21_PofP, T21_Temp) * count;
-                price_data[7].price=399* count;
+                price_data[7].price = 399 * count;
             } else {
                 //price_data[7].price = fun_Electricity_Spinning_25_Dn(T21_PofP, T21_Temp) * count;
-                price_data[7].price=399* count;
+                price_data[7].price = 399 * count;
             }
 
             m_totalprice = (price_data[0].price + price_data[1].price + price_data[2].price + price_data[3].price + price_data[4].price +
@@ -610,24 +608,24 @@ const D2Contain = () => {
 
             if (T00_Temp >= 25) {
                 //price_data[0].price = fun_Electricity_Supplemental_25_Up(T00_PofP, T00_Temp) * count;
-                price_data[0].price=220* count;
+                price_data[0].price = 220 * count;
             } else {
                 //price_data[0].price = fun_Electricity_Supplemental_25_Dn(T00_PofP, T00_Temp) * count;
-                price_data[0].price=220* count;
+                price_data[0].price = 220 * count;
             }
             if (T00_Temp >= 25) {
                 //price_data[1].price = fun_Electricity_Supplemental_25_Up(T03_PofP, T03_Temp) * count;
-                price_data[1].price=220* count;
+                price_data[1].price = 220 * count;
             } else {
                 //price_data[1].price = fun_Electricity_Supplemental_25_Dn(T03_PofP, T03_Temp) * count;
-                price_data[1].price=220* count;
+                price_data[1].price = 220 * count;
             }
             if (T00_Temp >= 25) {
                 //price_data[2].price = fun_Electricity_Supplemental_25_Up(T06_PofP, T06_Temp) * count;
-                price_data[2].price=220* count;
+                price_data[2].price = 220 * count;
             } else {
                 //price_data[2].price = fun_Electricity_Supplemental_25_Dn(T06_PofP, T06_Temp) * count;
-                price_data[2].price=220* count;
+                price_data[2].price = 220 * count;
             }
             if (T00_Temp >= 25) {
                 price_data[3].price = fun_Electricity_Supplemental_25_Up(T09_PofP, T09_Temp) * count;
@@ -646,17 +644,17 @@ const D2Contain = () => {
             }
             if (T00_Temp >= 25) {
                 //price_data[6].price = fun_Electricity_Supplemental_25_Up(T18_PofP, T18_Temp) * count;
-                price_data[6].price=299* count;
+                price_data[6].price = 299 * count;
             } else {
                 //price_data[6].price = fun_Electricity_Supplemental_25_Dn(T18_PofP, T18_Temp) * count;
-                price_data[6].price=299* count;
+                price_data[6].price = 299 * count;
             }
             if (T00_Temp >= 25) {
                 //price_data[7].price = fun_Electricity_Supplemental_25_Up(T21_PofP, T21_Temp) * count;
-                price_data[7].price=299* count;
+                price_data[7].price = 299 * count;
             } else {
                 //price_data[7].price = fun_Electricity_Supplemental_25_Dn(T21_PofP, T21_Temp) * count;
-                price_data[7].price=299* count;
+                price_data[7].price = 299 * count;
             }
 
             m_totalprice = (price_data[0].price + price_data[1].price + price_data[2].price + price_data[3].price + price_data[4].price +
@@ -990,16 +988,16 @@ const D2Contain = () => {
         createWeatherDate1(<h3>降雨</h3>, <h3>{T00_PofP}</h3>, <h3>{T03_PofP}</h3>, <h3>{T06_PofP}</h3>, <h3>{T09_PofP}</h3>, <h3>{T12_PofP}</h3>, <h3>{T15_PofP}</h3>, <h3>{T18_PofP}</h3>, <h3>{T21_PofP}</h3>)
     ]
 
-    function createelectricity_dealDate1(name, value1 ,value2,value3) {
-        return { name,  value1 ,value2,value3};
+    function createelectricity_dealDate1(name, value1, value2, value3) {
+        return { name, value1, value2, value3 };
     }
 
     const rows_electricity_deal = [
-        createelectricity_dealDate1(<h3>平均結清價格</h3>, <h3>{fmtap}</h3> ,<h3>{realtimetap}</h3>, <h3>{farthertap}</h3>),
+        createelectricity_dealDate1(<h3>平均結清價格</h3>, <h3>{fmtap}</h3>, <h3>{realtimetap}</h3>, <h3>{farthertap}</h3>),
     ]
 
-    function createPowerNeedDate1( value) {
-        return {  value};
+    function createPowerNeedDate1(value) {
+        return { value };
     }
 
     const rows_PowerNeed = [
@@ -1037,8 +1035,6 @@ const D2Contain = () => {
             console.log('Here')
         }, 600000);
     }
-
-
 
     return (
         <div className='d2Contain'>
@@ -1183,7 +1179,7 @@ const D2Contain = () => {
                     <p4>明日預測值</p4>
                     <TableContainer component={Paper} className='Table'>
                         <Table>
-                        <TableHead>
+                            <TableHead>
                                 <TableRow>
                                     <TableCell align="center"><h3>備轉容量</h3></TableCell>
                                 </TableRow>
@@ -1191,7 +1187,7 @@ const D2Contain = () => {
                             <TableBody>
                                 {rows_PowerNeed.map((row) => (
                                     <TableRow>
-                                    <TableCell align='center'>{row.value}</TableCell>
+                                        <TableCell align='center'>{row.value}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -1202,4 +1198,5 @@ const D2Contain = () => {
         </div>
     )
 }
+
 export default D2Contain;
