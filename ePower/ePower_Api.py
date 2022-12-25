@@ -232,40 +232,42 @@ weather2req = {"weather": "none"}
 ########## Test #####
 @app.route("/")
 def pyConnTest():
-    print('Hello Flask !')
+    print('API Test')
     Tnow_local = datetime.datetime.today()
     return jsonify(Tnow_local)
 
 ########## API ##########
 @app.route("/Get_TPC_PowerNeed_Pre")
 def pyGet_TPC_PowerNeed_Pre():
+    print('API Get_TPC_PowerNeed_Pre')
     tnow_local = datetime.datetime.today().date()
-    print('into Get_TPC_PowerNeed_Pre OK...... \n')
-    print(tnow_local)
     eInfo = CrawlerReq.electricityInfo_yday(tnow_local)
-    print(eInfo)
     return jsonify(eInfo)
 
 @app.route("/Get_TPC_PowerNeed_Now")
 def pyGet_TPC_PowerNeed_Now():
+    print('API Get_TPC_PowerNeed_Now')
     tnow_local = datetime.datetime.today().date()
     eInfo_cur = CrawlerReq.electricityinfo_current(tnow_local)
     return jsonify(eInfo_cur)
 
 @app.route("/Get_TPC_PowerNeed_Post")
 def pyGet_TPC_PowerNeed_Post():
+    print('API Get_TPC_PowerNeed_Post')
     tnow_local = datetime.datetime.today().date()
     eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
     return jsonify(eInfo_Next)
 
 @app.route("/Get_TPC_SolarInfo")
 def pyGet_TPC_SolarInfo():
+    print('API Get_TPC_SolarInfo')
     tnow_local = datetime.datetime.today().date()
     eSolar_data = CrawlerReq.solar_info(tnow_local)
     return jsonify(eSolar_data)
 
 @app.route("/Get_ETP_MktInfo")
 def pyGet_ETP_MktInfo():
+    print('API Get_ETP_MktInfo')
     #tnow_local =  datetime.datetime.today().date()
     #eDeal_data = CrawlerReq.electricity_deal(tnow_local)
     if (eDeal_idx == 0):
@@ -275,6 +277,7 @@ def pyGet_ETP_MktInfo():
 
 @app.route("/Get_ETP_Deal_Spinning")
 def pyGet_ETP_Deal_Spinning():
+    print('API Get_ETP_Deal_Spinning')
     #tnow_local =  datetime.datetime.today().date()
     #eDeal_Spinning = CrawlerReq.electricity_deal_realtimeStored(tnow_local, CrawlerReq.eacHourValue)
     if (eSpinning_idx == 0):
@@ -284,6 +287,7 @@ def pyGet_ETP_Deal_Spinning():
 
 @app.route("/Get_ETP_Deal_Supplemental")
 def pyGet_ETP_Deal_Supplemental():
+    print('API Get_ETP_Deal_Supplemental')
     #tnow_local =  datetime.datetime.today().date()
     #eDeal_Supplemental = CrawlerReq.electricity_deal_replenishStore(tnow_local, CrawlerReq.eacHourValue)
     # return jsonify(eDeal_Supplemental)
@@ -294,6 +298,7 @@ def pyGet_ETP_Deal_Supplemental():
 
 @app.route('/Get_CWB_Weather2FC', methods=['POST'])
 def pyGet_CWB_Weather2FC():
+    print('API Get_CWB_Weather2FC')
     global area_id
     global weather2req
 
@@ -301,30 +306,30 @@ def pyGet_CWB_Weather2FC():
     #area_req = json.loads(request.get_json())
     area_req = request.get_json()
     area_id = area_req.get("area")
-    print(tnow_local)
-    print(area_req)
-    print(area_id)
+    # print(tnow_local)
+    # print(area_req)
+    # print(area_id)
 
     #area_req = json.loads (request)
     weather2req = {"weather": "none"}
 
     if (area_id == 'Lukang'):
-        #print ("Lukang----")
+        # print ("Lukang----")
         weather2req = CrawlerReq.cwb_LugangInfo(tnow_local)
     elif (area_id == 'Lunbei'):
+        # print ("Lunbei----")
         weather2req = CrawlerReq.cwb_LunbeiInfo(tnow_local)
     elif (area_id == 'Budai'):
-        #print ("Budai---")
+        # print ("Budai---")
         weather2req = CrawlerReq.cwb_BudaiInfo(tnow_local)
     elif (area_id == 'Qigu'):
-        #print ("Qigu---")
+        # print ("Qigu---")
         weather2req = CrawlerReq.cwb_QiguInfo(tnow_local)
     else:
         #print ("error")
         return request.get_json()
 
-    # Read_CWB_Weather()
-    print(weather2req)
+    # print(weather2req)
     return jsonify(weather2req)
 
 ############## Thread ####################
@@ -343,7 +348,7 @@ def thread_ETP():
     global eDeal_Suppl0
     global eDeal_Suppl1
 
-    print('thread_ETP to start')
+    print('ETP thread to start')
 
     tick_start_GetEtp = 0
     while True:
@@ -352,7 +357,7 @@ def thread_ETP():
             tick_start_GetEtp = tick_end
             tnow_local = datetime.datetime.today().date()
             # print('--------------------------- thread_ETP time up ', tnow_local)
-            print('--------------------------- thread_ETP time up ')
+            print('--------------------------- ETP thread Start ')
 
             if (eDeal_idx == 0):
                 eDeal_data1 = CrawlerReq.electricity_deal(tnow_local)
@@ -360,27 +365,29 @@ def thread_ETP():
             else:
                 eDeal_data0 = CrawlerReq.electricity_deal(tnow_local)
                 eDeal_idx = 0
-            print('eDeal_data ready = ', eDeal_idx)
+            # print('eDeal_data ready = ', eDeal_idx)
 
-            # if (eSpinning_idx == 0):
-            #     eDeal_Spinning1 = CrawlerReq.electricity_deal_realtimeStored(
-            #         tnow_local, CrawlerReq.eacHourValue)
-            #     eSpinning_idx = 1
-            # else:
-            #     eDeal_Spinning0 = CrawlerReq.electricity_deal_realtimeStored(
-            #         tnow_local, CrawlerReq.eacHourValue)
-            #     eSpinning_idx = 0
+            if (eSpinning_idx == 0):
+                eDeal_Spinning1 = CrawlerReq.electricity_deal_realtimeStored(
+                    tnow_local, CrawlerReq.eacHourValue)
+                eSpinning_idx = 1
+            else:
+                eDeal_Spinning0 = CrawlerReq.electricity_deal_realtimeStored(
+                    tnow_local, CrawlerReq.eacHourValue)
+                eSpinning_idx = 0
             # print('eDeal_Spinning ready = ', eSpinning_idx)
 
-            # if (eSuppl_idx == 0):
-            #     eDeal_Suppl1 = CrawlerReq.electricity_deal_replenishStore(
-            #         tnow_local, CrawlerReq.eacHourValue)
-            #     eSuppl_idx = 1
-            # else:
-            #     eDeal_Suppl0 = CrawlerReq.electricity_deal_replenishStore(
-            #         tnow_local, CrawlerReq.eacHourValue)
-            #     eSuppl_idx = 0
+            if (eSuppl_idx == 0):
+                eDeal_Suppl1 = CrawlerReq.electricity_deal_replenishStore(
+                    tnow_local, CrawlerReq.eacHourValue)
+                eSuppl_idx = 1
+            else:
+                eDeal_Suppl0 = CrawlerReq.electricity_deal_replenishStore(
+                    tnow_local, CrawlerReq.eacHourValue)
+                eSuppl_idx = 0
             # print('eDeal_Suppl ready = ', eSuppl_idx)
+            
+            print('--------------------------- ETP thread End ')
 
 def thread_TPC():
     global tick_start_emit
@@ -390,39 +397,45 @@ def thread_TPC():
     tick_start_emit = 0
     while True:
         tick_end = time.perf_counter()
-        if (tick_end-tick_start_emit) >= 10 or tick_start_emit == 0:  # 600 seconds = 10 minutes #
+        if (tick_end-tick_start_emit) >= 600 or tick_start_emit == 0:  # 600 seconds = 10 minutes #
             tick_start_emit = tick_end
             tnow_local = datetime.datetime.today()
             # print('--------------------------- TPC thread time up ', tnow_local)
-            print('--------------------------- TPC thread time up ')
+            print('--------------------------- TPC thread Start')
 
             ##### TPC - Previous information (yesterday) #####
             print('TPC - Get Yesterday ----- Start')
             eInfo_Pre = CrawlerReq.electricityInfo_yday(tnow_local)
-            print(eInfo_Pre)
+            # print(eInfo_Pre)
             socketio.emit('LastDayInfo', eInfo_Pre, broadcast=True)
             print('eInfo_Pre emit OK ----- End')
+            print('TPC - Get Yesterday ----- End')
 
             ##### TPC - current information (today)  #####
             print('TPC - Get Today ----- Start')
             eInfo_cur = CrawlerReq.electricityinfo_current(tnow_local)
-            print(eInfo_cur)
+            # print(eInfo_cur)
             socketio.emit('TodayInfo', eInfo_cur, broadcast=True)
             print('eInfo_cur emit OK ----- End')
+            print('TPC - Get Today ----- End')
 
             ##### TPC - Next information (Tomorrow)  #####
             print('TPC - Get Tomorrow ----- Start')
             eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
-            print(eInfo_Next)
+            # print(eInfo_Next)
             socketio.emit('WeekDataInfo', eInfo_Next, broadcast=True)
             print('eInfo_Next emit OK ----- End')
+            print('TPC - Get Tomorrow ----- End')
 
             ##### TPC - Power from Solor  #####
             print('TPC - Solar Power ----- Start')
             eSolar_data = CrawlerReq.solar_info(tnow_local)
-            print(eSolar_data)
+            # print(eSolar_data)
             socketio.emit('StatusInfo', eSolar_data, broadcast=True)
             print('Solar emit OK ----- End')
+            print('TPC - Solar Power ----- End')
+            
+            print('--------------------------- TPC thread End')
 
 ##################################
 # WebSocket Test
@@ -498,8 +511,8 @@ if __name__ == "__main__":
         pth_TPC2Push.start()
         # pth_TPC2Push.join()
 
-        # pth_ETP = threading.Thread(target=thread_ETP)
-        # pth_ETP.start()
+        pth_ETP = threading.Thread(target=thread_ETP)
+        pth_ETP.start()
         # pth_ETP.join()
 
 

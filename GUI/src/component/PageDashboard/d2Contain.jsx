@@ -10,7 +10,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 // import DashboardIcon from '@mui/icons-material/Dashboard';
 // import { Button } from '@mui/material';
 // import { AreaChart, LineChart, Line, BarChart, Bar, Cell, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
-import { Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, } from 'recharts';
+import { Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ComposedChart, } from 'recharts';
 
 const D2Contain = () => {
 
@@ -535,7 +535,6 @@ const D2Contain = () => {
                 Weather_Data = JSON
                 console.log(Weather_Data)
                 Update_Weather_UI()
-
             })
             .then(
                 console.log('Done')
@@ -757,37 +756,36 @@ const D2Contain = () => {
 
     //#region Function
     const weather_Change = event => {
-        console.log("EVENT" + event.target.value);
+        console.log("EVENT Start");
+
         setweather_cbbox_item(event.target.value);
+        // console.log(typeof(weather_cbbox_item))
+        // console.log("weather_cbbox_item" + weather_cbbox_item);
 
-        console.log("weather_cbbox_item" + weather_cbbox_item);
-
-        if (event.target.value === 1) {
+        if (event.target.value === '1') {
             console.log(event.target.value);
+            console.log(typeof(event.target.value));
             console.log('Weather_Lukang_Click')
             Weather_Lukang_Click()
-
-
-
-        } else if (event.target.value === 2) {
+        }
+        else if (event.target.value === '2') {
             console.log(event.target.value);
+            console.log(typeof(event.target.value));
             console.log('Weather_Lunbei_Click')
-            console.log(Weather_Lunbei_Data)
             Weather_Lunbei_Click()
-
-
-        } else if (event.target.value === 3) {
+        } else if (event.target.value === '3') {
             console.log(event.target.value);
+            console.log(typeof(event.target.value));
             console.log('Weather_Budai_Click')
-            console.log(Weather_Budai_Data)
             Weather_Budai_Click()
-
         } else {
             console.log(event.target.value);
+            console.log(typeof(event.target.value));
             console.log('Weather_Qigu_Click')
-            console.log(Weather_Qigu_Data)
             Weather_Qigu_Click()
         }
+
+        console.log("EVENT End");
     };
 
     const initial = () => {
@@ -951,9 +949,9 @@ const D2Contain = () => {
 
     const Update_Weather_UI = () => {
         console.log('Update_Weather_UI')
-        console.log(Weather_Data)
-        console.log(Weather_Data[0].temperature)
-        console.log(Weather_Data[0].PofP)
+        // console.log(Weather_Data)
+        // console.log(Weather_Data[0].temperature)
+        // console.log(Weather_Data[0].PofP)
         setT00_Temp(Weather_Data[0].temperature)
         setT03_Temp(Weather_Data[1].temperature)
         setT06_Temp(Weather_Data[2].temperature)
@@ -1005,9 +1003,9 @@ const D2Contain = () => {
         initial()
         // Get_ETP_Deal_Spinning_Click()
         // Get_ETP_Deal_Supplemental_Click()
-        Weather_Lukang_Click()
-        electricity_deal_Click()
-        PowerNeed_Click()
+        // Weather_Lukang_Click()
+        // electricity_deal_Click()
+        // PowerNeed_Click()
     }, []);
     //#endregion
 
@@ -1198,17 +1196,14 @@ const D2Contain = () => {
 
                 <div className="area_2_2">
                     <div className="StackedBarChart">
-                        <div className="title"></div>
-                        {/* <ResponsiveContainer width={650} height={230}> */}
-                            <BarChart data={tatleprice} width={650} height={230}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="time" />
-                                <YAxis domain={[0, 1000]} padding={{ top: 30 }} label={{ value: '元', angle: 0, position: 'insideTop' }} />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="price" fill="#97e259" />
-                            </BarChart>
-                        {/* </ResponsiveContainer> */}
+                        <BarChart data={tatleprice} width={650} height={230}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" />
+                            <YAxis domain={[0, 1000]} padding={{ top: 30 }} label={{ value: '元', angle: 0, position: 'insideTop' }} />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="price" fill="#97e259" />
+                        </BarChart>
                     </div>
                 </div>
             </div>

@@ -375,11 +375,12 @@ class crawler:
 
     # 擷取交通部氣象局彰化縣鹿港鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_LugangInfo(self, strDate=datetime.datetime.today().date()):
+        print('--cralwer cwb_LugangInfo start--')
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [
             PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
-        print('--cralwer cwb_LugangInfo start--')
+
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(
@@ -431,11 +432,11 @@ class crawler:
 
     # 擷取交通部氣象局雲林縣崙背鄉 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_LunbeiInfo(self, strDate=datetime.datetime.today().date()):
+        print('--cralwer cwb_LunbeiInfo start--')
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [
             PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
-        print('--cralwer cwb_LunbeiInfo start--')
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(
@@ -487,11 +488,12 @@ class crawler:
 
     # 擷取交通部氣象局嘉義縣布袋鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_BudaiInfo(self, strDate=datetime.datetime.today().date()):
+        print('--cralwer cwb_BudaiInfo start--')
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [
             PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
-        print('--cralwer cwb_BudaiInfo start--')
+        
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(
@@ -543,11 +545,12 @@ class crawler:
 
     # 擷取交通部氣象局臺南市七股區 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
     def cwb_QiguInfo(self, strDate=datetime.datetime.today().date()):
+        print('--cralwer cwb_QiguInfo start--')
         cwbinfoList = []
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [
             PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
-        print('--cralwer cwb_QiguInfo start--')
+        
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(

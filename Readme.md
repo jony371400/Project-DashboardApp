@@ -43,7 +43,8 @@ $ pip3 install numpy
 ## Ecexcute
 > GUI
 ```
-$ npm start [my-app2]
+$ npm install
+$ npm start 
 ```
 
 > ePower
