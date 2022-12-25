@@ -15,10 +15,6 @@ const socket = io.connect("http://localhost:5001");
 const D1Contain = () => {
 
     //#region Property
-    // Testing
-    const [isId, setIsId] = useState();
-    const [isName, setIsName] = useState();
-
     let jsonData
 
     // Basic Data
@@ -102,33 +98,13 @@ const D1Contain = () => {
         fetch('http://127.0.0.1:5001/Get_ETP_Deal_Supplemental')
             .then((response) => response.json())
             .then((json) => {
-                jsonData = json
-                console.log(jsonData)
-                // console.log(typeof (jsonData))
-                console.log(jsonData.load_max_yday)
-                console.log(jsonData.rsv_perc_yday)
-                UpdateUI()
+                console.log(json)
             })
             .then(
                 console.log('Done')
             )
             .catch((error) => console.log('Error : ', error));
 
-    }
-
-    const UpdateUI = () => {
-        setIsId(jsonData.load_max_yday)
-        setIsName(jsonData.rsv_perc_yday)
-        // rows[0].id = jsonData.load_max_yday
-        // rows[0].firstName = jsonData.rsv_perc_yday
-
-        // MonCBG.style.background = "yellow"
-        // TueCBG.style.background = "red"
-        // WedCBG.style.background = "blue"
-        // ThuCBG.style.background = "gray"
-        // FriCBG.style.background = "orange"
-        // SatCBG.style.background = "pink"
-        // SunCBG.style.background = "green"
     }
 
     const TodayInfoFetchClick = () => {
@@ -349,14 +325,18 @@ const D1Contain = () => {
     //#endregion
 
     //#region WebSocket
-    const [message, setMessage] = useState("");
-    const [messageReceived, setMessageReceived] = useState("");
+    // Testing
+    const [message, setMessage] = useState();
 
     const sendMessage = () => {
-        socket.emit("send_message", message);
+        socket.emit("send_message", "Msg Test");
     };
 
     useEffect(() => {
+        socket.on("return_message", (data) => {
+            setMessage(data);            
+        });
+
         socket.on("TodayInfo", (jsonData) => {
             // setMessageReceived(data);
             console.log('Update TodayInfo')
@@ -446,10 +426,10 @@ const D1Contain = () => {
             setWeekTitle7(jsonData[6].dayStr)
         });
 
-        TodayInfoFetchClick()
-        LastDayInfoFetchClick()
-        StatusInfoFetchClick()
-        WeekDataInfoFetchClick()
+        // TodayInfoFetchClick()
+        // LastDayInfoFetchClick()
+        // StatusInfoFetchClick()
+        // WeekDataInfoFetchClick()
 
         console.log('- Use Effect -')
     }, [socket]);
@@ -657,14 +637,12 @@ const D1Contain = () => {
                     <h4>被轉容量50萬千瓦以下</h4>
                 </div>
 
-                {/* <div className='d1Contain-Contain-GridTest'>
+                <div className='d1Contain-Contain-GridTest' style={{display: 'none',}}>
                     <button onClick={FetchClick}>Fetch Test</button>
-                    <p>{isId}</p>
-                    <p>{isName}</p>
                     <button onClick={sendMessage}>WebSocket Test</button>
                     <h1> Recived: </h1>
-                    {messageReceived}
-                </div> */}
+                    {message}
+                </div>
             </div>
 
         </div>

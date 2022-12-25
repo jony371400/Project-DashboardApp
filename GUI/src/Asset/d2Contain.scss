@@ -2,89 +2,172 @@
     display: grid;
     grid-template-columns: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
     grid-template-rows: 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh 10vh;
-    
+
+
+    .d1Contain-Chart-Title1 {
+        grid-row: 1 / 2;
+        grid-column: 1 / 8;
+        line-height: 10vh;
+        // background-color: #00DD00;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        h3 {
+            color: #4F4F4F;
+        }
+
+        .nbmicon:hover {
+            cursor: wait;
+            // background-color: orange;
+        }
+    }
+
+    .d1Contain-Chart-Title2 {
+        grid-row: 5 / 6;
+        grid-column: 1 / 8;
+        line-height: 10vh;
+        // background-color: #00DD00;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        h3 {
+            color: #4F4F4F;
+        }
+
+        .nbmicon:hover {
+            cursor: wait;
+            // background-color: orange;
+        }
+    }
+
     .StackedBarChart1 {
         padding-top: 50px;
-        grid-row: 1 / 5;
+        grid-row: 2 / 5;
         grid-column: 1 / 9;
         line-height: 3vh;
     }
 
     .StackedBarChart2 {
         padding-top: 20px;
-        grid-row: 5 / 8;
+        grid-row: 6 / 9;
         grid-column: 1 / 9;
         line-height: 3vh;
-        
+
     }
 
-    .area_2 {
-
+    .d1Contain-Contain-Title1 {
+        grid-row: 1 / 2;
+        grid-column: 9 / 20;
+        line-height: 10vh;
+        // background-color: #00DD00;
         display: flex;
+        align-items: center;
+        text-decoration: none;
 
-        grid-row: 5 / 10;
+        h3 {
+            color: #4F4F4F;
+        }
+
+        .nbmicon:hover {
+            cursor: wait;
+            // background-color: orange;
+        }
+    }
+
+    .d1Contain-Contain-Title2 {
+        grid-row: 4 / 5;
+        grid-column: 9 / 14;
+        line-height: 10vh;
+        // background-color: #00DD00;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        h3 {
+            color: #4F4F4F;
+        }
+
+        .nbmicon:hover {
+            cursor: wait;
+            // background-color: orange;
+        }
+    }
+
+    .d1Contain-Contain-Title3 {
+        grid-row: 4 / 5;
+        grid-column: 16 / 20;
+        line-height: 10vh;
+        // background-color: #00DD00;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        h3 {
+            color: #4F4F4F;
+        }
+
+        .nbmicon:hover {
+            cursor: wait;
+            // background-color: orange;
+        }
+    }
+
+    .d1Contain-Contain-Title4 {
+        grid-row: 6 / 7;
+        grid-column: 9 / 20;
+        line-height: 10vh;
+        // background-color: #00DD00;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        h3 {
+            color: #4F4F4F;
+        }
+    }
+
+    .area_top {
+        grid-row: 2 / 3;
+        grid-column: 9 / 20;
+        padding-top: 40px;
+        line-height: 5vh;
+        // background-color: red;
+    }
+
+    .area_mid-l {
+        display: flex;
+        grid-row: 5 / 6;
+        grid-column: 9 / 14;
+        // display: none;
+        // background-color: yellow;
+    }
+
+    .area_mid-r {
+        display: flex;
+        grid-row: 5 / 6;
+        grid-column: 16 / 18;
+        // display: none;
+        // background-color: gray;
+    }
+
+    .area_bot {
+        display: flex;
+        grid-row: 6 / 10;
         grid-column: 9 / 50;
         padding: 50px;
-        
+
         .area_2_1 {
             padding-top: 50px;
-
-            font-size:0.5cm;
-
+            font-size: 0.5cm;
             line-height: 5vh;
-            
         }
 
         .area_2_2 {
             padding-top: 80px;
-
             line-height: 1vh;
-            
-
         }
     }
 
-    .area_3 {
-
-        grid-row: 1 / 4;
-        grid-column: 9 / 20;
-        padding-top: 40px;
-        line-height: 5vh;
-        
-        .title{
-            
-        }
-    }
-
-    .area_4 {
-        display: flex;
-
-
-        grid-row: 4 / 6;
-        grid-column: 9 / 18;
-
-        .right {
-            padding-top: 20px;
-            .Table{
-                
-            text-align: center;
-            }
-            font: size 0.5em;
-
-        }
-
-        .left {
-            //border-style:solid;
-            padding: 20px;
-            
-            font: size 0.5em;
-            
-
-            .Table{
-                padding-left: 20px;
-                padding-right: 20px;
-                text-align: center;
-                }
-        }
-    }
 }
