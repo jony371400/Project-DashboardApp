@@ -1,31 +1,6 @@
 # Project about design dashboard
 
-> App1
-```
-* Reference WebSite
-    Style : https://www.youtube.com/watch?v=yKV1IGahXqA
-    Router : https://reactrouter.com/en/main/start/tutorial
-    MUI : https://mui.com/zh/
-    Chart : https://recharts.org/en-US/
-
-* Installtion
-    $ npm install react-router-dom
-    $ npm install --save-dev node-sass
-    $ npm install @mui/material @emotion/react @emotion/styled
-    $ npm install @mui/icons-material
-    $ npm install @mui/x-data-grid
-    $ npm install react-circular-progressbar  
-    $ npm install recharts
-
-* Execute
-    $ npm install 
-    $ npm start
-
-* Deploy
-    $ npm run build
-```
-
-
+## Installtion
 > GUI
 ```
 * Reference WebSite
@@ -52,35 +27,44 @@
     $ npm run build
 ```
 
-## API Spec
-> Dashboard1
+> ePower
 ```
-[GET]
-Get_TPC_PowerNeed_Pre
-Get_TPC_PowerNeed_Now
-Get_TPC_PowerNeed_Post
-Get_TPC_SolarInfo
-```
-
->Dashboard2
-```
-[GET]
-[POST]
+$ pip3 install threading
+$ pip3 install time
+$ pip3 install flask
+$ pip3 install flask_cors
+$ pip3 install flask_socketio
+$ pip3 install selenium
+$ pip3 install webdriver_manager
+$ pip3 install concurrent
+$ pip3 install numpy
 ```
 
 ## Ecexcute
-> Frontend
+> GUI
 ```
 $ npm start [my-app2]
 ```
 
-> Backend
+> ePower
 ```
 $ python3 ePower_Api
 ```
 
-> Testing 
+## Testing 
 ```
-$ python app.py
-$ node app.js
+* WebSocket_py
+    $ python3 app.py
+
+* WebSocket
+    $ node app.js
+
+* WebSocket_client
+    $ npm start
+
+* FlaskAPI
+    $ python3 app.py
+
+* my-app1
+    $ npm start
 ```
