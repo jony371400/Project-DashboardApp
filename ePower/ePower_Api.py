@@ -230,6 +230,8 @@ eDeal_Suppl1 = [{"StateOwnedStored": "925.4", "hour": "0", "investorownedStored"
 weather2req = {"weather": "none"}
 
 ########## Test #####
+
+
 @app.route("/")
 def pyConnTest():
     print('API Test')
@@ -237,12 +239,15 @@ def pyConnTest():
     return jsonify(Tnow_local)
 
 ########## API ##########
+
+
 @app.route("/Get_TPC_PowerNeed_Pre")
 def pyGet_TPC_PowerNeed_Pre():
     print('API Get_TPC_PowerNeed_Pre')
     tnow_local = datetime.datetime.today().date()
     eInfo = CrawlerReq.electricityInfo_yday(tnow_local)
     return jsonify(eInfo)
+
 
 @app.route("/Get_TPC_PowerNeed_Now")
 def pyGet_TPC_PowerNeed_Now():
@@ -251,6 +256,7 @@ def pyGet_TPC_PowerNeed_Now():
     eInfo_cur = CrawlerReq.electricityinfo_current(tnow_local)
     return jsonify(eInfo_cur)
 
+
 @app.route("/Get_TPC_PowerNeed_Post")
 def pyGet_TPC_PowerNeed_Post():
     print('API Get_TPC_PowerNeed_Post')
@@ -258,12 +264,14 @@ def pyGet_TPC_PowerNeed_Post():
     eInfo_Next = CrawlerReq.electricityInfo_future(tnow_local)
     return jsonify(eInfo_Next)
 
+
 @app.route("/Get_TPC_SolarInfo")
 def pyGet_TPC_SolarInfo():
     print('API Get_TPC_SolarInfo')
     tnow_local = datetime.datetime.today().date()
     eSolar_data = CrawlerReq.solar_info(tnow_local)
     return jsonify(eSolar_data)
+
 
 @app.route("/Get_ETP_MktInfo")
 def pyGet_ETP_MktInfo():
@@ -275,6 +283,7 @@ def pyGet_ETP_MktInfo():
     else:
         return jsonify(eDeal_data1)
 
+
 @app.route("/Get_ETP_Deal_Spinning")
 def pyGet_ETP_Deal_Spinning():
     print('API Get_ETP_Deal_Spinning')
@@ -284,6 +293,7 @@ def pyGet_ETP_Deal_Spinning():
         return jsonify(eDeal_Spinning0)
     else:
         return jsonify(eDeal_Spinning1)
+
 
 @app.route("/Get_ETP_Deal_Supplemental")
 def pyGet_ETP_Deal_Supplemental():
@@ -295,6 +305,7 @@ def pyGet_ETP_Deal_Supplemental():
         return jsonify(eDeal_Suppl0)
     else:
         return jsonify(eDeal_Suppl1)
+
 
 @app.route('/Get_CWB_Weather2FC', methods=['POST'])
 def pyGet_CWB_Weather2FC():
@@ -335,6 +346,7 @@ def pyGet_CWB_Weather2FC():
 ############## Thread ####################
 # tick_start_emit = 0
 # tick_start_GetEtp = 0
+
 
 def thread_ETP():
     global tick_start_GetEtp
@@ -386,8 +398,9 @@ def thread_ETP():
                     tnow_local, CrawlerReq.eacHourValue)
                 eSuppl_idx = 0
             # print('eDeal_Suppl ready = ', eSuppl_idx)
-            
+
             print('--------------------------- ETP thread End ')
+
 
 def thread_TPC():
     global tick_start_emit
@@ -434,11 +447,13 @@ def thread_TPC():
             socketio.emit('StatusInfo', eSolar_data, broadcast=True)
             print('Solar emit OK ----- End')
             print('TPC - Solar Power ----- End')
-            
+
             print('--------------------------- TPC thread End')
 
 ##################################
 # WebSocket Test
+
+
 @app.route('/SocketSendTest')
 def SocketSendTest():
     print('Test Begin')
@@ -446,6 +461,7 @@ def SocketSendTest():
     print('Send Success!')
     print('Test End')
     return 'Success'
+
 
 @app.route('/UpdateTodayInfo')
 def UpdateTodayInfo():
@@ -495,10 +511,12 @@ def UpdateWeekDataInfo():
     return 'Success'
 
 # WebSocket Connection
+
+
 @socketio.on('send_message')
 def Recive(msg):
     print('Recive From Client Message : ', msg)
-    socketio.emit('return_message', 'Return' + msg , broadcast=True)
+    socketio.emit('return_message', 'Return' + msg, broadcast=True)
 
 
 ########## __main__ ##########
@@ -514,7 +532,6 @@ if __name__ == "__main__":
         pth_ETP = threading.Thread(target=thread_ETP)
         pth_ETP.start()
         # pth_ETP.join()
-
 
         # allow_unsafe_werkzeug=True only for my PC #
         #socketio.run(app , port= 5001, allow_unsafe_werkzeug=True)

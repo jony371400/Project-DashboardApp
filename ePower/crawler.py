@@ -11,7 +11,6 @@ import time
 import json
 
 # crawler class 爬蟲套件
-
 class crawler:
     # @staticmethod
     # 擷取今日電力資訊 1.日期 2.更新時間 3.目前用電量 4.使用率 5.預估最高用電 6.尖峰使用率 7.今日最大供電能力 8.供電色號
@@ -334,7 +333,7 @@ class crawler:
         pool.shutdown()
         for fu in futures:
             hourlyList.extend(fu.result())
-        print('--cralwer end--')
+        print('--cralwer electricity_deal_replenishStore end--')
         return hourlyList
 
     def eacHourValue(options, chrome_service, h, n):
@@ -345,7 +344,7 @@ class crawler:
         # time.sleep(1)
         hourlyList = []
         actions = ActionChains(driver)
-        print('start', h, 'h value get')
+        # print('start', h, 'h value get')
         for i in range(h, h + 6):
             StateOwnedStored = 'null'
             # 得標容量(民營)
@@ -370,7 +369,8 @@ class crawler:
             hourly = {'hour': str(i), 'StateOwnedStored': str(StateOwnedStored), 'investorownedStored': str(
                 investorownedStored), 'nodealStored': str(nodealStored), 'price': str(price)}
             hourlyList.append(hourly)
-        print('end', h, 'h value get')
+        # print('end', h, 'h value get')
+        print('--cralwer eacHourValue end--')
         return hourlyList
 
     # 擷取交通部氣象局彰化縣鹿港鎮 1.地區 2.明天日期 3.時段 4.溫度 5.降雨機率
@@ -493,7 +493,7 @@ class crawler:
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [
             PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
-        
+
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(
@@ -550,7 +550,7 @@ class crawler:
         PC3_D = '1' if datetime.datetime.now().hour >= 22 else '2'
         IDList = [[PC3_D, '00', '00', '03'], [PC3_D, '03', '00', '03'], [PC3_D, '06', '06', '09'], [PC3_D, '09', '06', '09'], [
             PC3_D, '12', '12', '15'], [PC3_D, '15', '12', '15'], [PC3_D, '18', '18', '21'], [PC3_D, '21', '18', '21']]
-        
+
         options = Options()
         options.add_argument('--headless')
         chrome_service = fs.Service(
